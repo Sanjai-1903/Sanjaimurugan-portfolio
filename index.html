@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjai Murugan — AI Systems Engineer & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Noise Overlay -->
+<div class="noise-overlay"></div>
+
+<!-- Custom Cursor -->
+<div class="custom-cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-avatar">
+    <img src="photot1.png" alt="Sanjai Murugan" id="loader-avatar-img">
+    <div class="avatar-ring"></div>
+    <div class="avatar-ring ring-2"></div>
+    <div class="avatar-ring ring-3"></div>
+  </div>
+  <div class="loader-name">
+    <span class="loader-first">sanjai</span><span class="loader-accent">_</span><span class="loader-last">murugan</span>
+  </div>
+  <div class="loader-title">AI Systems Engineer</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-subtitle">Initializing neural pathways...</div>
+</div>
+
+
+<!-- Command Palette -->
+<div id="cmd-palette">
+  <div class="cmd-input-wrap">
+    <span class="cmd-icon">⌨</span>
+    <input type="text" id="cmd-input" placeholder="Search sections, projects, research..." autofocus>
+  </div>
+  <div class="cmd-results">
+    <div class="cmd-result" onclick="scrollToSection('hero')">
+      <span>🏠</span> Home <kbd>⌘+1</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('about')">
+      <span>👤</span> About Me <kbd>⌘+2</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('projects')">
+      <span>🚀</span> Engineering Projects <kbd>⌘+3</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('research')">
+      <span>🔬</span> Research <kbd>⌘+4</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('startup')">
+      <span>💡</span> Startup Concept <kbd>⌘+5</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('journey')">
+      <span>🛤️</span> My Journey <kbd>⌘+6</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('techstack')">
+      <span>⚙️</span> Engineering Toolkit <kbd>⌘+7</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('blog')">
+      <span>📝</span> Technical Insights <kbd>⌘+8</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('certifications')">
+      <span>📜</span> Credentials <kbd>⌘+9</kbd>
+    </div>
+    <div class="cmd-result" onclick="scrollToSection('contact')">
+      <span>📡</span> Get in Touch <kbd>⌘+0</kbd>
+    </div>
+  </div>
+  <div class="cmd-footer">
+    <span><kbd>Esc</kbd> Close</span>
+    <span><kbd>↑↓</kbd> Navigate</span>
+    <span><kbd>⌘+K</kbd> Open palette</span>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">sanjai<span>.dev</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
+      <a href="#startup">Startup</a>
+      <a href="#journey">Journey</a>
+      <a href="#techstack">Toolkit</a>
+      <a href="#certifications">Credentials</a>
+      <a href="#contact" class="nav-cta-link">Contact</a>
+    </div>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+
+  <!-- Floating gradient blobs -->
+  <div class="bg-blob b1"></div>
+  <div class="bg-blob b2"></div>
+  <div class="bg-blob b3"></div>
+
+  <div class="container hero-container">
+    <div class="hero-left">
+      <!-- Hero Photo — above headline -->
+      <div class="hero-photo-container">
+        <div class="photo-frame">
+          <img src="photot1.png" alt="Sanjai Murugan" class="hero-photo">
+          <div class="photo-glow"></div>
+          <div class="photo-ring"></div>
+          <div class="photo-ring ring-2"></div>
+        </div>
+        <div class="photo-label">
+          <span class="photo-dot"></span>
+          <span>Sanjai Murugan</span>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span>Currently exploring new opportunities</span>
+        </div>
+
+        <h1 class="hero-headline">
+          <span class="gradient-text" id="heroTitle">Engineering AI Systems</span>
+        </h1>
+        <p class="hero-subtitle">
+          I'm Sanjai — an AI systems engineer and researcher building local-first AI architectures,
+          multi-agent orchestration, RAG pipelines,AI Automation and efficient inference systems.
+        </p>
+
+        <div class="rotating-text">
+          <span id="rotate-word"></span><span class="cursor-blink">|</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">⚡ View Engineering Work</a>
+          <a href="#research" class="btn btn-outline">🔬 Research Papers & Logs</a>
+          <a href="#contact" class="btn btn-ghost">📩 Let's Connect</a>
+        </div>
+
+        <!-- Floating concept tags -->
+        <div class="hero-float-cards">
+          <div class="float-card">LoRA Fine-Tuning</div>
+          <div class="float-card">RAG Systems</div>
+          <div class="float-card">Local Inference</div>
+          <div class="float-card">Agentic Workflows</div>
+          <div class="float-card">Neural Networks</div>
+          <div class="float-card">Machine Learning</div>
+          <div class="float-card">AI Automation</div>
+          <div class="float-card">Computer Vision</div>
+          <div class="float-card">Multi-Agent Arch.</div>
+        </div>
+
+        <!-- Personal terminal -->
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot r"></div>
+            <div class="terminal-dot y"></div>
+            <div class="terminal-dot g"></div>
+            <span class="terminal-path">
+              <span style="color: var(--accent-cyan);">sancodes</span>@<span style="color: var(--accent-purple);">local-ai</span>: <span style="color: var(--text-muted);">~</span>
+            </span>
+          </div>
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-line"><span class="terminal-prompt">❯</span> cat about_me.md</div>
+            <div class="terminal-line"><span class="terminal-output">— AI systems engineer from India</span></div>
+            <div class="terminal-line"><span class="terminal-output">— Building production-grade local LLM systems</span></div>
+            <div class="terminal-line"><span class="terminal-output">— Researching efficient inference & agent architectures</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">❯</span> ls projects/</div>
+            <div class="terminal-line"><span class="terminal-output">— multi-agent-coding-system</span></div>
+            <div class="terminal-line"><span class="terminal-output">— rag-portfolio-assistant</span></div>
+            <div class="terminal-line"><span class="terminal-output">— vision-lowlight-detection</span></div>
+            <div class="terminal-line"><span class="terminal-prompt">❯</span> echo "Ready to build"</div>
+            <div class="terminal-line"><span style="color: var(--accent-cyan);">█</span> <span class="terminal-blink">deployment ready_</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number" id="metric-years" data-target="3">0</div>
+        <div class="stat-label">Years Building</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number" id="metric-projects" data-target="8">0</div>
+        <div class="stat-label">AI Projects</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number" id="metric-certs" data-target="6">0</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      
+  </div>
+<br>
+
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== ABOUT SECTION ==================== -->
+<section id="about">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Building AI at the Systems Level</h2>
+    </div>
+
+    <div class="about-content">
+      <div class="about-image fade-up">
+        <div class="about-photo-wrapper">
+          <img src="photo2m.png" alt="Sanjai Murugan" class="about-photo">
+          <div class="about-photo-border"></div>
+        </div>
+        <div class="about-quick-info">
+          <div class="info-item">
+            <span class="info-label">Name</span>
+            <span class="info-value">Sanjai Murugan</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Role</span>
+            <span class="info-value">AI Systems Engineer</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Focus</span>
+            <span class="info-value">Local LLMs & Agentic Systems</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Location</span>
+            <span class="info-value">India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text fade-up">
+        <p>
+          I'm an <strong>AI systems engineer</strong> with a passion for building efficient, scalable AI systems that work locally and privately. My expertise spans from transformer internals and attention mechanisms to deployment pipelines and inference optimization.
+        </p>
+        <p>
+          I specialize in <strong>local-first AI architectures</strong>, <strong>multi-agent orchestration,Agentic AI</strong>, and <strong>RAG systems</strong>. I don't just use AI tools—I build the infrastructure that makes them work efficiently on consumer hardware.
+        </p>
+        <p>
+          Currently exploring <strong>sparse expert routing</strong>, <strong>KV cache optimization</strong>, and <strong>edge deployment strategies</strong> for large language models.
+        </p>
+
+        <div class="interest-tags">
+          <span class="interest-tag">AI Systems</span>
+          <span class="interest-tag">Local LLMs</span>
+          <span class="interest-tag">Multi-Agent</span>
+          <span class="interest-tag">RAG</span>
+          <span class="interest-tag">Lora/QLora</span>
+          <span class="interest-tag">Apple Silicon</span>
+          <span class="interest-tag">Python</span>
+          <span class="interest-tag">TensorFlow</span>
+          <span class="interest-tag">PyTorch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== PROJECTS SECTION ==================== -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Engineering Projects</div>
+      <h2 class="section-title">Systems I've Built</h2>
+      <p class="section-subtitle">
+        Each project reflects deep systems-level thinking — spanning agent orchestration, inference optimization, retrieval systems, and computer vision.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      
+
+      <!-- Project 2 -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">🔍 Research Project</div>
+          <h3 class="project-title">Bike Rental RAG Assistant</h3>
+
+<p class="project-tagline-text">
+  "AI-powered retrieval assistant for intelligent bike rental support and real-time customer interaction."
+</p>
+
+<p class="project-desc">
+  A Retrieval-Augmented Generation (RAG) based AI assistant developed for a bike rental platform to handle real-time customer queries and provide accurate responses regarding pricing, rental policies, bike availability, booking procedures, and platform features. The system leverages semantic search and vector embeddings to retrieve relevant information from a knowledge base, enabling context-aware and reliable conversations.
+</p>
+
+<ul class="project-features">
+  <li>Real-time query handling for bike rental platform users</li>
+  <li>Semantic document retrieval using vector databases and embeddings</li>
+  <li>Context-aware multi-turn conversational support</li>
+  <li>Efficient knowledge retrieval with optimized chunking techniques</li>
+  <li>Accurate response generation with retrieval-based context injection</li>
+</ul>
+          <div class="project-tech">
+            <span>LangChain</span><span>ChromaDB</span><span>OpenAI Embeddings</span><span>FastAPI</span>
+          </div>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/rag-chatbot" target="_blank" class="project-btn primary">
+              🐙 GitHub
+            </a>
+            <a href="https://www.linkedin.com/posts/sanjaimurugan_excited-to-share-my-latest-ai-project-activity-7401639534448480256-AIDM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE3T9sYBULkcKxxp5yqU_MCZe7HUVYP3JVc" target="_blank" class="project-btn primary">
+              💼 LinkedIn 
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">🧪 Experiment</div>
+          <h3 class="project-title">TinyOllama LoRA Fine-Tuning Research</h3>
+          <p class="project-tagline-text">"Parameter-efficient specialization experiments on lightweight local LLMs."</p>
+          <p class="project-desc">
+            Explored LoRA-based fine-tuning workflows using MLX and lightweight language models to understand efficient specialization techniques and local deployment optimization. Documented rank exploration, quantization strategies, and quality trade-offs.
+          </p>
+          <ul class="project-features">
+            <li>Low-parameter adaptation with LoRA rank exploration (r=4 to r=32)</li>
+            <li>Inference efficiency benchmarking before and after fine-tuning</li>
+            <li>Specialization behavior analysis across model sizes</li>
+            <li>Local deployment feasibility studies on consumer hardware</li>
+          </ul>
+          <div class="project-metrics">
+            <div class="metric-item"><strong>~0.1%</strong> of total parameters trained</div>
+            <div class="metric-item"><strong>4×</strong> reduced compute vs full FT</div>
+            <div class="metric-item"><strong>Optimized</strong> experimentation pipeline</div>
+          </div>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/fine-tuning-SLM" target="_blank" class="project-btn primary">
+              🐙 GitHub
+            </a>
+            <a href="https://www.linkedin.com/posts/sanjaimurugan_ai-mlx-tinyllama-activity-7392050888997031936-tYTl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE3T9sYBULkcKxxp5yqU_MCZe7HUVYP3JVc" target="_blank" class="project-btn primary">
+              💼 LinkedIn 
+            </a>
+          </div>
+          <div class="expand-section">
+            <button class="expand-toggle" onclick="toggleExpand(this)">▸ Research Findings</button>
+            <div class="expand-content">
+              <div class="expand-inner">
+                <h4>Key Findings</h4>
+                <ul class="stagger-list">
+                  <li>LoRA rank r=8 achieved 85% of full fine-tuning quality with <strong>97% fewer trainable parameters</strong>.</li>
+                  <li>MLX on Apple Silicon proved competitive with CUDA for small-scale LoRA experiments.</li>
+                  <li>Quantization-aware fine-tuning (QLoRA) enabled effective training on 6GB VRAM hardware.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">📷 Applied AI / Computer Vision</div>
+          <h3 class="project-title">Low-Light Animal Detection Pipeline</h3>
+          <p class="project-tagline-text">"Computer vision system for wildlife detection in difficult lighting environments."</p>
+          <p class="project-desc">
+            Developed a computer vision pipeline capable of detecting wildlife in low-visibility scenarios using image enhancement and object detection techniques. Explored preprocessing optimization for real-time performance under challenging environmental conditions.
+          </p>
+          <ul class="project-features">
+            <li>Low-light image enhancement as preprocessing stage</li>
+            <li>Detection reliability scoring under varying conditions</li>
+            <li>Preprocessing optimization for real-time performance</li>
+            <li>Evaluation against real-world environmental conditions</li>
+          </ul>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/animal-detection" target="_blank" class="project-btn primary">
+              🐙 GitHub
+            </a>
+            <a href="https://www.linkedin.com/posts/sanjaimurugan_opensource-ai-computervision-activity-7344698868082610176-rFIK?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE3T9sYBULkcKxxp5yqU_MCZe7HUVYP3JVc" target="_blank" class="project-btn primary">
+              💼 LinkedIn 
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5: New - Startup concept prototype -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">💡 Side Project</div>
+          <h3 class="project-title">Semantic ATS Skill Matching Engine</h3>
+          <p class="project-tagline-text">"AI-powered skill extraction and semantic matching for hiring workflows."</p>
+          <p class="project-desc">
+            A semantic ATS (Applicant Tracking System) software developed using Agentic AI workflows powered through n8n automation. The platform is designed to intelligently analyze resumes, understand candidate skills semantically, match applicants with job requirements, and automate hiring workflows in real time. By leveraging AI-driven decision making and contextual understanding, the system streamlines recruitment operations and improves candidate-job matching accuracy.
+            
+            <ul class="project-features">
+              <li>Semantic resume parsing and intelligent candidate-job matching</li>
+              <li>Agentic AI workflow orchestration using n8n automation</li>
+              <li>Automated recruitment pipeline and candidate screening</li>
+              <li>Context-aware skill evaluation using vector embeddings</li>
+              <li>AI-assisted hiring insights and workflow optimization</li>
+            </ul>
+          </p>
+          <div class="project-tech">
+            <span>n8n</span><span>Agentic AI</span>
+          </div>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/Semantic-ATS-software" target="_blank" class="project-btn primary">
+              🐙 GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== RESEARCH SECTION ==================== -->
+<section id="research">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Research & Experiments</div>
+      <h2 class="section-title">Pushing Systems Beyond the Tutorial</h2>
+      <p class="section-subtitle">
+        Exploring experimental AI system architectures, inference optimization techniques, and efficient model specialization beyond standard application development.
+      </p>
+    </div>
+
+    <div class="research-grid">
+      <div class="research-card fade-up">
+        <span class="research-num">01</span>
+        <h3><span>Neuron Specialization Analysis</span></h3>
+        <div class="research-tags">
+          <span class="research-tag">Activation Patterns</span>
+          <span class="research-tag">Sparse Routing</span>
+          <span class="research-tag">Transformer Internals</span>
+        </div>
+        <p>Studying activation clustering and sparse routing ideas within transformer layers. Investigating specialization patterns that emerge naturally during training and how they can be exploited for more efficient computation.</p>
+      </div>
+
+      <div class="research-card fade-up">
+        <span class="research-num">02</span>
+        <h3><span>Efficient Inference Exploration</span></h3>
+        <div class="research-tags">
+          <span class="research-tag">KV Cache</span>
+          <span class="research-tag">Selective Attention</span>
+          <span class="research-tag">Compute Reduction</span>
+        </div>
+        <p>Exploring KV cache optimization strategies, selective computation methods, and various compute reduction techniques to enable faster, more memory-efficient inference on consumer hardware.</p>
+      </div>
+
+      <div class="research-card fade-up">
+        <span class="research-num">03</span>
+        <h3><span>Dynamic Expert Routing</span></h3>
+        <div class="research-tags">
+          <span class="research-tag">MoE</span>
+          <span class="research-tag">Adaptive Systems</span>
+          <span class="research-tag">Hierarchical Execution</span>
+        </div>
+        <p>Designing modular activation systems with adaptive routing logic. Exploring hierarchical execution concepts where different subnetworks handle different complexity levels of tasks.</p>
+      </div>
+
+      <div class="research-card fade-up">
+        <span class="research-num">04</span>
+        <h3><span>Agent Memory Architectures</span></h3>
+        <div class="research-tags">
+          <span class="research-tag">Long-term Memory</span>
+          <span class="research-tag">RAG</span>
+          <span class="research-tag">Multi-Agent Sync</span>
+        </div>
+        <p>Investigating long-term memory mechanisms for autonomous agents. Researching retrieval-based context management and multi-agent synchronization protocols for persistent collaborative systems.</p>
+      </div>
+    </div>
+
+    <!-- Research Log -->
+    <div class="research-log fade-up">
+      <h3>
+        <span class="log-icon">⬡</span>
+        Recent Experiment Logs
+      </h3>
+      <div class="log-entry">
+        <div class="log-date">2026-05-10</div>
+        <div class="log-title">Sparse MoE routing on Llama-3-8B — 47% FLOPs reduction with <3% quality drop</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-date">2026-04-22</div>
+        <div class="log-title">KV cache quantization experiments: INT8 maintains 99.1% retrieval accuracy</div>
+      </div>
+ 
+      <div class="log-entry">
+        <div class="log-date">2026-03-18</div>
+        <div class="log-title">LoRA rank ablation study: r=8 optimal for domain adaptation on limited data</div>
+      </div>
+
+      <div class="research-banner">
+        <span class="banner-icon">⚗️</span>
+        <span>Currently documenting benchmark results for publication — inference optimization paper in progress.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== STARTUP IDEA SECTION ==================== -->
+<section id="startup">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Concept Research</div>
+      <h2 class="section-title">AI-Powered Skill Intelligence Platform</h2>
+    </div>
+
+    <div class="startup-content">
+      <div class="startup-visual fade-up">
+        <div class="startup-diagram">
+          <div class="diagram-node diagram-input">
+            <div class="node-icon">📄</div>
+            <span>Resumes & Profiles</span>
+          </div>
+          <div class="diagram-arrow">→</div>
+          <div class="diagram-node diagram-process">
+            <div class="node-icon">🧠</div>
+            <span>Embedding Engine</span>
+          </div>
+          <div class="diagram-arrow">→</div>
+          <div class="diagram-node diagram-process">
+            <div class="node-icon">🔗</div>
+            <span>Vector Skill Graph</span>
+          </div>
+          <div class="diagram-arrow">→</div>
+          <div class="diagram-node diagram-process">
+            <div class="node-icon">⚖️</div>
+            <span>Somatic-Weight Scoring</span>
+          </div>
+          <div class="diagram-arrow">→</div>
+          <div class="diagram-node diagram-output">
+            <div class="node-icon">🎯</div>
+            <span>Intelligent Matching</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="startup-text fade-up">
+        <h3>The Problem</h3>
+        <p>
+          Traditional ATS systems rely on keyword matching — fundamentally broken for identifying real skill relationships. A backend engineer who knows "distributed systems" should surface for "microservices architecture" roles, but current systems miss these connections entirely.
+        </p>
+
+        <h3>The Approach</h3>
+        <p>
+          Building an AI-powered platform using <strong>vector database semantic matching</strong>, <strong>embedding-based resume analysis</strong>, and <strong>contextual skill relationship mapping</strong> inspired by somatic-weight principles. The system doesn't just match keywords — it understands the <em>relationships between skills</em> and maps candidate capabilities to role requirements at a semantic level.
+        </p>
+
+        <div class="startup-features">
+          <div class="feature-item">
+            <span class="feature-icon">🔬</span>
+            <div>
+              <strong>Vector Skill Graph</strong>
+              <span>Multi-dimensional skill representation with relationship edges</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🧬</span>
+            <div>
+              <strong>Somatic-Weight Scoring</strong>
+              <span>Contextual skill importance derived from relationship patterns</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <div>
+              <strong>Real-time ATS Optimization</strong>
+              <span>Intelligent candidate ranking with explainable scoring</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🤖</span>
+            <div>
+              <strong>Bidirectional Intelligence</strong>
+              <span>Recruiter insights + candidate experience optimization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="startup-tech">
+          <span>Vector Databases</span>
+          <span>Embedding Models</span>
+          <span>Graph Neural Networks</span>
+          <span>LangChain</span>
+          <span>FastAPI</span>
+          <span>PostgreSQL + pgvector</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== MY JOURNEY SECTION ==================== -->
+<section id="journey">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">My Journey</div>
+      <h2 class="section-title">From Curiosity to Systems Engineering</h2>
+      <p class="section-subtitle">
+        The evolution from exploring Python to engineering production-grade AI infrastructure — told as it unfolded.
+      </p>
+    </div>
+
+    <div class="journey-timeline">
+      <div class="timeline-line"></div>
+
+      <div class="journey-phase">
+        <div class="year-marker">
+          <div class="year-label">2023</div>
+          <div class="year-node"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">The Spark</div>
+          <div class="phase-body">
+            <p>Everything started with curiosity. I picked up Python not because I had a plan, but because everyone said it was the language to learn. I started with basics — variables, loops, functions — then quickly fell into the rabbit hole of backend systems and APIs.</p>
+            <p class="highlight">The first "hello world" API I built with Flask felt like magic. I had no idea what I was doing, but it worked.</p>
+            <p>Early experimentation with AI tooling began here — simple scripts, basic ML models, and a growing obsession with understanding how things actually work under the hood.</p>
+          </div>
+          <div class="phase-tech">
+            <span>Python</span><span>Flask</span><span>APIs</span><span>Basic ML</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-phase">
+        <div class="phase-marker">
+          <div class="phase-year">2024</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Building Production Systems</div>
+          <div class="phase-body">
+            <p>This is when things shifted from hobby to serious engineering. I built my first <strong>production-ready RAG pipeline</strong>, deployed workflow automation with n8n, and integrated various AI APIs into real applications.</p>
+            <p>First experiments with LangChain, ChromaDB, and local LLM inference via Ollama. I remember the excitement of running a 7B model locally for the first time — it felt like unlocking a superpower.</p>
+            <p class="highlight">Key realization: The gap between "AI demos" and "AI systems" is enormous. Most tutorials stop at the demo. I wanted to build what comes after.</p>
+          </div>
+          <div class="phase-tech">
+            <span>LangChain</span><span>ChromaDB</span><span>Ollama</span><span>n8n</span><span>FastAPI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-phase">
+        <div class="phase-marker">
+          <div class="phase-year">2025</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Deep Dive into AI Systems</div>
+          <div class="phase-body">
+            <p>I went deep. <strong>LoRA fine-tuning</strong> — understanding rank selection, placement strategies, and when parameter-efficient methods break down. <strong>Multi-agent orchestration</strong> — building systems where multiple LLM agents coordinate on complex tasks.</p>
+            <p>Optimized local inference pipelines, experimented with MLX on Apple Silicon, and began researching efficient attention mechanisms. Started documenting everything — not just the wins, but the failures and dead ends that taught me the most.</p>
+            <p class="highlight">Built a multi-agent coding system from scratch. It was buggy, slow, and frustrating. I learned more from that project than from any tutorial.</p>
+          </div>
+          <div class="phase-tech">
+            <span>LoRA/QLoRA</span><span>MLX</span><span>Agent Systems</span><span>Inference Opt.</span><span>RAG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-phase">
+        <div class="phase-marker">
+          <div class="phase-year">2024-25</div>
+          <div class="phase-dot" style="background: var(--accent-magenta); box-shadow: 0 0 12px rgba(232,121,249,0.4);"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">The Pivot That Didn't Happen</div>
+          <div class="phase-body">
+            <p>I once tried to build a startup around an AI-powered hiring intelligence platform. The vision was compelling — semantic skill matching, contextual relationship scoring, and an ATS that actually understood candidates beyond keywords.</p>
+            <p>We prototyped the core engine — vector-based skill graphs, embedding-driven resume analysis, early experiments with graph neural networks for skill relationship mapping. The tech worked. The GTM didn't.</p>
+            <p class="highlight">Sometimes the best engineering decisions are the ones you don't ship. I learned more about product-market fit, team dynamics, and when to walk away from this project than from any that succeeded.</p>
+            <p>It's shelved for now, not abandoned. The research lives on in this portfolio — as a startup concept I revisit when the timing is right.</p>
+          </div>
+          <div class="phase-tech">
+            <span>Vector DBs</span><span>Embeddings</span><span>Graph ML</span><span>ATS Systems</span><span>n8n</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-phase">
+        <div class="phase-marker">
+          <div class="phase-year">2026</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Research & Infrastructure at the Edge</div>
+          <div class="phase-body">
+            <p>Current focus: pushing AI systems to their limits. <strong>Sparse expert routing</strong> for 47% FLOPs reduction. <strong>KV cache quantization</strong> maintaining 99.1% accuracy at INT8. <strong>MoE architectures</strong> designed for edge deployment.</p>
+            <p>I'm building infrastructure that bridges the gap between research papers and production systems — taking experimental architectures and making them actually work at scale.</p>
+            <p class="highlight">The goal isn't just to use AI. It's to understand it deeply enough to build what doesn't exist yet.</p>
+          </div>
+          <div class="phase-tech">
+            <span>MoE</span><span>Sparse Routing</span><span>KV Cache</span><span>Edge AI</span><span>Infra</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-phase">
+        <div class="phase-marker">
+          <div class="phase-year">Beyond</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">What's Next</div>
+          <div class="phase-body">
+            <p>I'm exploring the convergence of <strong>efficient inference</strong>, <strong>agent memory architectures</strong>, and <strong>AI-driven developer tools</strong>. The future isn't just bigger models — it's smarter systems that use intelligence efficiently.</p>
+            <p>Always open to research collaborations, ambitious projects, and conversations about where AI infrastructure is heading.</p>
+            <p class="highlight">If you're working on something interesting in AI systems, I'd love to hear about it.</p>
+          </div>
+          <div class="phase-tech">
+            <span>Open to Ideas</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== TECH STACK SECTION ==================== -->
+<section id="techstack">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Engineering Toolkit</div>
+      <h2 class="section-title">Tools of the Trade</h2>
+      <p class="section-subtitle">
+        A curated stack focused on building, optimizing, and deploying AI systems from the ground up.
+      </p>
+    </div>
+
+    <div class="tech-visual fade-up">
+      <div class="tech-category">
+        <div class="tech-cat-header">
+          <div class="tech-icon ai">🧠</div>
+          <div class="tech-cat-name">AI / Machine Learning</div>
+          <div class="tech-cat-count">12 tools</div>
+        </div>
+        <div class="tech-items">
+          <span class="tech-item-el">PyTorch</span>
+          <span class="tech-item-el">Transformers</span>
+          <span class="tech-item-el">LangChain</span>
+          <span class="tech-item-el">LangGraph</span>
+          <span class="tech-item-el">Ollama</span>
+          <span class="tech-item-el">MLX</span>
+          <span class="tech-item-el">ChromaDB</span>
+          <span class="tech-item-el">LoRA</span>
+          <span class="tech-item-el">QLoRA</span>
+          <span class="tech-item-el">RAG</span>
+          <span class="tech-item-el">Semantic Search</span>
+          <span class="tech-item-el">Vector DBs</span>
+        </div>
+        <div class="proficiency-bars">
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>PyTorch</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="82"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>LLM Fine-Tuning</span><span>Intermediate</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="72"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>RAG Architectures</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>Agent Systems</span><span>Intermediate</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="68"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-cat-header">
+          <div class="tech-icon backend">⚙️</div>
+          <div class="tech-cat-name">Backend & Infrastructure</div>
+          <div class="tech-cat-count">9 tools</div>
+        </div>
+        <div class="tech-items">
+          <span class="tech-item-el">Python</span>
+          <span class="tech-item-el">FastAPI</span>
+          <span class="tech-item-el">REST APIs</span>
+          <span class="tech-item-el">gRPC</span>
+          <span class="tech-item-el">Docker</span>
+          <span class="tech-item-el">PostgreSQL</span>
+          <span class="tech-item-el">Redis</span>
+          <span class="tech-item-el">Nginx</span>
+          <span class="tech-item-el">Linux</span>
+          <span class="tech-item-el">CI/CD</span>
+        </div>
+        <div class="proficiency-bars">
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>Python</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="88"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>FastAPI / APIs</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="78"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>Docker / DevOps</span><span>Intermediate</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="70"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-cat-header">
+          <div class="tech-icon frontend">💻</div>
+          <div class="tech-cat-name">Frontend & UI</div>
+          <div class="tech-cat-count">7 tools</div>
+        </div>
+        <div class="tech-items">
+          <span class="tech-item-el">Next.js</span>
+          <span class="tech-item-el">TypeScript</span>
+          <span class="tech-item-el">React</span>
+          <span class="tech-item-el">TailwindCSS</span>
+          <span class="tech-item-el">Framer Motion</span>
+          <span class="tech-item-el">Three.js</span>
+          <span class="tech-item-el">HTML5 / CSS3</span>
+        </div>
+        <div class="proficiency-bars">
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>Next.js / React</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>TypeScript</span><span>Advanced</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="prof-bar-item">
+            <div class="prof-bar-label"><span>UI/UX Design</span><span>Intermediate</span></div>
+            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="70"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-cat-header">
+          <div class="tech-icon automation">⚡</div>
+          <div class="tech-cat-name">Automation & Tools</div>
+          <div class="tech-cat-count">5 tools</div>
+        </div>
+        <div class="tech-items">
+          <span class="tech-item-el">n8n</span>
+          <span class="tech-item-el">GitHub Actions</span>
+          <span class="tech-item-el">Cloudflare</span>
+          <span class="tech-item-el">Vercel</span>
+          <span class="tech-item-el">Workflow Systems</span>
+          <span class="tech-item-el">AI Pipelines</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+
+<!-- ==================== CERTIFICATIONS — INFINITE CAROUSEL ==================== -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Credentials</div>
+      <h2 class="section-title">Certifications</h2>
+      <p class="section-subtitle">
+        Verified certifications across AI, ML, and cloud platforms.
+      </p>
+    </div>
+
+    <div class="certs-carousel-wrapper fade-up">
+      <div class="certs-carousel-track" id="certCarouselTrack">
+        <!-- Certificate Slides (Actual Certificate Images) -->
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1741420132358.jpeg" alt="Deep Learning Specialization Certificate" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1745054695140.jpeg" alt="AWS Certified Machine Learning Specialty" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1766475953294.jpeg" alt="TensorFlow Developer Certificate" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/HCL GUVI Certification - a73p7LH62vuV1Z2467-2.png" alt="HCL GUVI Certification" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/M SANJAI-AGRHINOVA.pdf" alt="IBM Python for Data Science and AI" class="cert-image">
+          </div>
+        </div>
+
+        <!-- Add a couple more certificate slides for better carousel effect -->
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1741420132358.jpeg" alt="Deep Learning Specialization Certificate" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1745054695140.jpeg" alt="AWS Certified Machine Learning Specialty" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/1766475953294.jpeg" alt="TensorFlow Developer Certificate" class="cert-image">
+          </div>
+        </div>
+
+        <div class="cert-slide">
+          <div class="cert-card-inner">
+            <img src="certificates/HCL GUVI Certification - a73p7LH62vuV1Z2467-2.png" alt="HCL GUVI Certification" class="cert-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-content fade-up">
+      <div class="section-label" style="justify-content: center;">Get in Touch</div>
+      <h2 class="contact-heading">Let's Build Something Ambitious</h2>
+      <p class="contact-text">
+        I'm always interested in connecting with people who share my passion for building intelligent systems — whether it's AI engineering internships, ambitious AI projects, research collaborations, or experimental infrastructure work.
+      </p>
+      <div class="contact-list">
+        <div class="contact-item">
+          <a href="https://github.com/" target="_blank" rel="noopener">🐙 GitHub</a>
+        </div>
+        <div class="contact-item">
+          <a href="https://linkedin.com/" target="_blank" rel="noopener">💼 LinkedIn</a>
+        </div>
+        <div class="contact-item">
+          <a href="mailto:sanjaimurugan7319@gmail.com">sanjaimurugan7319@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <a href="tel:+919600527319">📞 +91 9600527319</a>
+        </div>
+      </div>
+      <div class="footer-text">
+        Engineering intelligent systems with depth and purpose.<br>
+        <span>sanjai_murugan</span> — 2026
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script src="script.js"></script>
+
+</body>
+</html>
