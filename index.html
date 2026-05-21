@@ -20,7 +20,7 @@
 <!-- Loading Screen -->
 <div id="loader">
   <div class="loader-avatar">
-    <img src="photot1.png" alt="Sanjai Murugan" id="loader-avatar-img">
+    <img src="photo.png" alt="Sanjai Murugan" id="loader-avatar-img">
     <div class="avatar-ring"></div>
     <div class="avatar-ring ring-2"></div>
     <div class="avatar-ring ring-3"></div>
@@ -62,14 +62,11 @@
     <div class="cmd-result" onclick="scrollToSection('techstack')">
       <span>⚙️</span> Engineering Toolkit <kbd>⌘+7</kbd>
     </div>
-    <div class="cmd-result" onclick="scrollToSection('blog')">
-      <span>📝</span> Technical Insights <kbd>⌘+8</kbd>
-    </div>
     <div class="cmd-result" onclick="scrollToSection('certifications')">
-      <span>📜</span> Credentials <kbd>⌘+9</kbd>
+      <span>📜</span> Credentials <kbd>⌘+8</kbd>
     </div>
     <div class="cmd-result" onclick="scrollToSection('contact')">
-      <span>📡</span> Get in Touch <kbd>⌘+0</kbd>
+      <span>📡</span> Get in Touch <kbd>⌘+9</kbd>
     </div>
   </div>
   <div class="cmd-footer">
@@ -115,7 +112,7 @@
       <!-- Hero Photo — above headline -->
       <div class="hero-photo-container">
         <div class="photo-frame">
-          <img src="photot1.png" alt="Sanjai Murugan" class="hero-photo">
+          <img src="photo.png" alt="Sanjai Murugan" class="hero-photo">
           <div class="photo-glow"></div>
           <div class="photo-ring"></div>
           <div class="photo-ring ring-2"></div>
@@ -205,9 +202,8 @@
         <div class="stat-number" id="metric-certs" data-target="6">0</div>
         <div class="stat-label">Certifications</div>
       </div>
-      
+      </div>
   </div>
-<br>
 
   <div class="scroll-indicator">
     <span>Scroll to explore</span>
@@ -256,7 +252,7 @@
           I'm an <strong>AI systems engineer</strong> with a passion for building efficient, scalable AI systems that work locally and privately. My expertise spans from transformer internals and attention mechanisms to deployment pipelines and inference optimization.
         </p>
         <p>
-          I specialize in <strong>local-first AI architectures</strong>, <strong>multi-agent orchestration,Agentic AI</strong>, and <strong>RAG systems</strong>. I don't just use AI tools—I build the infrastructure that makes them work efficiently on consumer hardware.
+          I specialize in <strong>local-first AI architectures</strong>, <strong>multi-agent orchestration, Agentic AI</strong>, and <strong>RAG systems</strong>. I don't just use AI tools—I build the infrastructure that makes them work efficiently on consumer hardware.
         </p>
         <p>
           Currently exploring <strong>sparse expert routing</strong>, <strong>KV cache optimization</strong>, and <strong>edge deployment strategies</strong> for large language models.
@@ -627,7 +623,9 @@
     </div>
 
     <div class="journey-timeline">
-      <div class="timeline-line"></div>
+      <div class="timeline-line">
+        <div class="timeline-progress"></div>
+      </div>
 
       <div class="journey-phase">
         <div class="year-marker">
@@ -648,9 +646,9 @@
       </div>
 
       <div class="journey-phase">
-        <div class="phase-marker">
-          <div class="phase-year">2024</div>
-          <div class="phase-dot"></div>
+        <div class="year-marker">
+          <div class="year-label">2024</div>
+          <div class="year-node"></div>
         </div>
         <div class="phase-content">
           <div class="phase-title">Building Production Systems</div>
@@ -666,9 +664,9 @@
       </div>
 
       <div class="journey-phase">
-        <div class="phase-marker">
-          <div class="phase-year">2025</div>
-          <div class="phase-dot"></div>
+        <div class="year-marker">
+          <div class="year-label">2025</div>
+          <div class="year-node"></div>
         </div>
         <div class="phase-content">
           <div class="phase-title">Deep Dive into AI Systems</div>
@@ -684,9 +682,9 @@
       </div>
 
       <div class="journey-phase">
-        <div class="phase-marker">
-          <div class="phase-year">2024-25</div>
-          <div class="phase-dot" style="background: var(--accent-magenta); box-shadow: 0 0 12px rgba(232,121,249,0.4);"></div>
+        <div class="year-marker">
+          <div class="year-label">2024-25</div>
+          <div class="year-node" style="background: var(--accent-magenta); box-shadow: 0 0 12px rgba(232,121,249,0.4);"></div>
         </div>
         <div class="phase-content">
           <div class="phase-title">The Pivot That Didn't Happen</div>
@@ -703,9 +701,9 @@
       </div>
 
       <div class="journey-phase">
-        <div class="phase-marker">
-          <div class="phase-year">2026</div>
-          <div class="phase-dot"></div>
+        <div class="year-marker">
+          <div class="year-label">2026</div>
+          <div class="year-node"></div>
         </div>
         <div class="phase-content">
           <div class="phase-title">Research & Infrastructure at the Edge</div>
@@ -721,9 +719,9 @@
       </div>
 
       <div class="journey-phase">
-        <div class="phase-marker">
-          <div class="phase-year">Beyond</div>
-          <div class="phase-dot"></div>
+        <div class="year-marker">
+          <div class="year-label">Beyond</div>
+          <div class="year-node"></div>
         </div>
         <div class="phase-content">
           <div class="phase-title">What's Next</div>
@@ -923,7 +921,11 @@
 
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <img src="certificates/M SANJAI-AGRHINOVA.pdf" alt="IBM Python for Data Science and AI" class="cert-image">
+            <a href="certificates/M SANJAI-AGRHINOVA.pdf" target="_blank" class="cert-image cert-pdf">
+              <span class="cert-pdf-icon">📄</span>
+              <span class="cert-pdf-name">M SANJAI — AGRHINOVA</span>
+              <span class="cert-pdf-hint">Click to view PDF</span>
+            </a>
           </div>
         </div>
 
@@ -969,10 +971,10 @@
       </p>
       <div class="contact-list">
         <div class="contact-item">
-          <a href="https://github.com/" target="_blank" rel="noopener">🐙 GitHub</a>
+          <a href="https://github.com/Sanjai-1903" target="_blank" rel="noopener">🐙 GitHub</a>
         </div>
         <div class="contact-item">
-          <a href="https://linkedin.com/" target="_blank" rel="noopener">💼 LinkedIn</a>
+          <a href="https://www.linkedin.com/in/sanjaimurugan" target="_blank" rel="noopener">💼 LinkedIn</a>
         </div>
         <div class="contact-item">
           <a href="mailto:sanjaimurugan7319@gmail.com">sanjaimurugan7319@gmail.com</a>

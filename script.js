@@ -21,7 +21,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover glow on interactive elements
-document.querySelectorAll('a, button, .project-card, .blog-card, .skill-tag, .tech-item-el, .contact-item').forEach(el => {
+document.querySelectorAll('a, button, .project-card, .blog-card, .skill-tag, .tech-item-el, .contact-item, .phase-tech span').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
@@ -45,6 +45,67 @@ window.addEventListener('scroll', () => {
     navbar.classList.remove('scrolled');
   }
 });
+
+// ===== INFO CARDS INTERACTIONS =====
+const infoCards = document.querySelectorAll('.info-item');
+
+const infoCardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      if (!entry.target.classList.contains('animated')) {
+        entry.target.classList.add('animated');
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+infoCards.forEach(card => {
+  infoCardObserver.observe(card);
+});
+
+// Click ripple effect
+infoCards.forEach(card => {
+  card.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+
+    this.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  });
+});
+
+// Add ripple effect CSS
+const style = document.createElement('style');
+style.textContent = `
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(6, 182, 212, 0.3);
+    transform: scale(0);
+    animation: rippleEffect 0.6s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes rippleEffect {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 
 // ===== MOBILE MENU =====
 const menuBtn = document.getElementById('menuBtn');
@@ -106,12 +167,17 @@ function typeRotate() {
 }
 setTimeout(typeRotate, 2500);
 
-// ===== SCROLL ANIMATIONS =====
+// ===== SCROLL ANIMATIONS WITH STAGGERED REVEAL =====
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      // Staggered reveal for children
+      const staggerItems = entry.target.querySelectorAll('.stagger-item');
+      staggerItems.forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 100);
+      });
       observer.unobserve(entry.target);
     }
   });
@@ -119,95 +185,39 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
 
-// ===== CINEMATIC JOURNEY TIMELINE ANIMATIONS =====
-const journeyObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const timeline = entry.target.closest('.journey-timeline');
-      const timelineLine = timeline.querySelector('.timeline-line');
-      const phases = entry.target.querySelectorAll('.journey-phase');
-      const journeyRect = entry.target.getBoundingClientRect();
+// ===== PREMIUM JOURNEY TIMELINE ANIMATIONS =====
+const journeySection = document.querySelector('#journey');
+const timelineLine = journeySection?.querySelector('.timeline-line');
+const phases = journeySection?.querySelectorAll('.journey-phase');
 
-      // Activate timeline line
-      timelineLine.classList.add('active');
-
-      // Animate timeline line fill
-      requestAnimationFrame(() => {
-        timelineLine.classList.add('animated');
-      });
-
-      // Calculate which phase is in view
-      phases.forEach((phase, index) => {
-        const phaseRect = phase.getBoundingClientRect();
-        const phaseCenter = phaseRect.top + phaseRect.height / 2;
-        const viewportCenter = window.innerHeight / 2;
-
-        // Check if phase is in center of viewport
-        if (Math.abs(phaseCenter - viewportCenter) < 100) {
-          phase.classList.add('active');
-          phase.classList.remove('prev');
-
-          // Add parallax effect
-          const scrolled = window.pageYOffset;
-          const rate = scrolled * -0.1;
-          phase.style.transform = `translateY(${rate}px)`;
-        } else if (phaseRect.top < viewportCenter) {
-          // Phase has been scrolled past
-          phase.classList.remove('active');
-          phase.classList.add('prev');
-        } else {
-          // Phase hasn't been reached yet
-          phase.classList.remove('active', 'prev');
-        }
-      });
-
-      // Special handling for first and last phases
-      if (phases.length > 0) {
-        phases[0].classList.add('active');
-        phases[phases.length - 1].classList.add('prev');
-      }
-
-      journeyObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '-10% 0px -10% 0px' });
-
-// Enhanced journey scroll with performance optimizations
 let ticking = false;
 function updateJourneyTimeline() {
-  const journeySection = document.querySelector('#journey');
-  if (!journeySection) return;
+  if (!journeySection || !timelineLine) return;
 
-  const timeline = journeySection.querySelector('.timeline-line');
-  const phases = journeySection.querySelectorAll('.journey-phase');
   const journeyRect = journeySection.getBoundingClientRect();
+  const timelineProgress = timelineLine.querySelector('.timeline-progress');
 
   if (journeyRect.top < window.innerHeight && journeyRect.bottom > 0) {
-    timeline.classList.add('active');
-
     // Calculate scroll progress
-    const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - journeyRect.top) / (window.innerHeight + journeyRect.height)));
+    const progress = Math.max(0, Math.min(1, (window.innerHeight - journeyRect.top) / (window.innerHeight + journeyRect.height)));
+    timelineLine.style.setProperty('--progress', progress);
 
-    // Update timeline line fill using CSS custom property
-    timeline.style.setProperty('--scroll-progress', scrollProgress);
+    // Update timeline fill height
+    if (timelineProgress) {
+      timelineProgress.style.height = (progress * 100) + '%';
+    }
 
     // Update active phase based on scroll position
+    const viewportCenter = window.innerHeight / 2;
+
     phases.forEach((phase, index) => {
       const phaseRect = phase.getBoundingClientRect();
       const phaseCenter = phaseRect.top + phaseRect.height / 2;
-      const viewportCenter = window.innerHeight / 2;
-
-      // Check if this phase is the closest to center
       const distanceToCenter = Math.abs(phaseCenter - viewportCenter);
 
       if (distanceToCenter < 150) {
         phase.classList.add('active');
         phase.classList.remove('prev');
-
-        // Parallax effect
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.05;
-        phase.style.transform = `translateY(${rate}px) translateZ(0)`;
       } else if (phaseRect.top < viewportCenter) {
         phase.classList.remove('active');
         phase.classList.add('prev');
@@ -216,8 +226,8 @@ function updateJourneyTimeline() {
       }
     });
 
-    // Ensure first phase is always active when visible
-    if (phases[0] && phases[0].getBoundingClientRect().top < window.innerHeight / 2) {
+    // Ensure first phase is active when section comes into view
+    if (phases[0] && phases[0].getBoundingClientRect().top < window.innerHeight * 0.8) {
       phases[0].classList.add('active');
     }
   }
@@ -225,23 +235,15 @@ function updateJourneyTimeline() {
   ticking = false;
 }
 
-// Throttle scroll handler for performance
 function requestTick() {
   if (!ticking) {
-    window.requestAnimationFrame(updateJourneyTimeline);
+    requestAnimationFrame(updateJourneyTimeline);
     ticking = true;
   }
 }
 
-// Initialize journey animations
-const journeySection = document.querySelector('#journey');
 if (journeySection) {
-  journeyObserver.observe(journeySection);
-
-  // Add scroll listener for continuous updates
   window.addEventListener('scroll', requestTick, { passive: true });
-
-  // Initial update
   updateJourneyTimeline();
 }
 
@@ -250,8 +252,10 @@ const barObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const bars = entry.target.querySelectorAll('.prof-bar-fill');
-      bars.forEach(bar => {
-        bar.style.width = bar.dataset.width + '%';
+      bars.forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width + '%';
+        }, i * 150);
       });
       barObserver.unobserve(entry.target);
     }
@@ -314,81 +318,87 @@ window.addEventListener('scroll', () => {
 
 // ===== HERO CANVAS — AI GRID PARTICLES =====
 const canvas = document.getElementById('hero-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas?.getContext('2d');
 let particles = [];
 let mouseX = 0, mouseY = 0;
 
 function resizeCanvas() {
+  if (!canvas) return;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+
+if (canvas) {
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+}
 
 document.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 });
 
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.5,
-    vy: (Math.random() - 0.5) * 0.5,
-    size: Math.random() * 1.5 + 0.5,
-    opacity: Math.random() * 0.5 + 0.1,
-  });
-}
+if (canvas && ctx) {
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      size: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.5 + 0.1,
+    });
+  }
 
-function drawParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    p.x += p.vx;
-    p.y += p.vy;
-    if (p.x < 0) p.x = canvas.width;
-    if (p.x > canvas.width) p.x = 0;
-    if (p.y < 0) p.y = canvas.height;
-    if (p.y > canvas.height) p.y = 0;
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
 
-    // Mouse interaction
-    const dx = mouseX - p.x;
-    const dy = mouseY - p.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 150) {
-      ctx.beginPath();
-      ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 150)})`;
-      ctx.lineWidth = 0.5;
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(mouseX, mouseY);
-      ctx.stroke();
-    }
-
-    // Draw particle
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
-    ctx.fill();
-
-    // Connect nearby particles
-    for (let j = i + 1; j < particles.length; j++) {
-      const p2 = particles[j];
-      const dx2 = p.x - p2.x;
-      const dy2 = p.y - p2.y;
-      const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-      if (dist2 < 120) {
+      // Mouse interaction
+      const dx = mouseX - p.x;
+      const dy = mouseY - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(6, 182, 212, ${0.08 * (1 - dist2 / 120)})`;
+        ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 150)})`;
         ctx.lineWidth = 0.5;
         ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p2.x, p2.y);
+        ctx.lineTo(mouseX, mouseY);
         ctx.stroke();
       }
-    }
-  });
-  requestAnimationFrame(drawParticles);
+
+      // Draw particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
+      ctx.fill();
+
+      // Connect nearby particles
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx2 = p.x - p2.x;
+        const dy2 = p.y - p2.y;
+        const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+        if (dist2 < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(6, 182, 212, ${0.08 * (1 - dist2 / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
 }
-drawParticles();
 
 // ===== METRICS COUNTER ANIMATION =====
 function animateMetrics() {
@@ -399,6 +409,7 @@ function animateMetrics() {
 
 function animateValue(id, start, end, duration, suffix) {
   const el = document.getElementById(id);
+  if (!el) return;
   const startTime = performance.now();
   function update(currentTime) {
     const elapsed = currentTime - startTime;
@@ -448,24 +459,29 @@ function toggleExpand(btn) {
 
   if (!isOpen) {
     content.classList.add('open');
-    btn.textContent = '▾ Technical Breakdown';
+    btn.textContent = '▾ Research Findings';
   } else {
-    btn.textContent = '▸ Technical Breakdown';
+    btn.textContent = '▸ Research Findings';
   }
 }
 
 // ===== HERO PARTICLES (DOM-based floating particles) =====
 const heroParticles = document.getElementById('particles');
-for (let i = 0; i < 30; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle';
-  p.style.left = Math.random() * 100 + '%';
-  p.style.top = Math.random() * 100 + '%';
-  p.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
-  p.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
-  p.style.animationDelay = Math.random() * 15 + 's';
-  p.style.animationDuration = (10 + Math.random() * 20) + 's';
-  heroParticles.appendChild(p);
+if (heroParticles) {
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
+    p.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
+    p.style.animationName = 'particleDrift';
+    p.style.animationDelay = Math.random() * 15 + 's';
+    p.style.animationDuration = (10 + Math.random() * 20) + 's';
+    p.style.animationTimingFunction = 'linear';
+    p.style.animationIterationCount = 'infinite';
+    heroParticles.appendChild(p);
+  }
 }
 
 // ===== KEYBOARD SHORTCUTS =====
@@ -474,10 +490,10 @@ document.addEventListener('keydown', (e) => {
   if (e.altKey && e.key === '2') scrollToSection('about');
   if (e.altKey && e.key === '3') scrollToSection('projects');
   if (e.altKey && e.key === '4') scrollToSection('research');
-  if (e.altKey && e.key === '5') scrollToSection('certifications');
+  if (e.altKey && e.key === '5') scrollToSection('startup');
   if (e.altKey && e.key === '6') scrollToSection('journey');
   if (e.altKey && e.key === '7') scrollToSection('techstack');
-  if (e.altKey && e.key === '8') scrollToSection('blog');
+  if (e.altKey && e.key === '8') scrollToSection('certifications');
   if (e.altKey && e.key === '9') scrollToSection('contact');
 });
 
@@ -538,9 +554,7 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-
+// Initialize animations on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
-
-
-
+  // Any additional initialization
 });
