@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Claude Code local
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Build output
+.dist/

@@ -1,0 +1,203 @@
+# PORTFOLIO RAG DOCUMENT — SANJAI MURUGAN
+# Generated from LinkedIn Activity Export | Last updated: May 2026
+# Optimized for Retrieval-Augmented Generation (RAG) use on portfolio website
+
+---
+
+## IDENTITY & OVERVIEW
+
+Name: Sanjai Murugan
+Location: Madurantakam, Tamil Nadu, India
+Headline: AI & Machine Learning Engineer | LLM Development, Fine-Tuning & Image Processing | n8n Automation | VITC '28
+Industry: Technology, Information and Internet
+LinkedIn Verified Education: Vellore Institute of Technology (verified 2024)
+
+Sanjai Murugan is a second-year Computer Science Engineering student at Vellore Institute of Technology, Chennai (VIT Chennai, batch of 2028). He works at the intersection of Artificial Intelligence, Machine Learning, and Computer Vision. With a foundation in Java, C++, and C, he has transitioned into building AI-driven systems and intelligent automation solutions. His current work spans machine learning model development, LLM-based applications, AI agent design, and workflow automation using n8n, with a strong focus on real-world usability and scalability.
+
+Sanjai is actively seeking internships, research opportunities, and collaborations in AI/ML, Computer Vision, LLMs, and Intelligent Automation.
+
+---
+
+## EDUCATION
+
+Institution: Vellore Institute of Technology, Chennai (VITC)
+Degree: Bachelor of Technology (B.Tech) in Computer Science Engineering
+Duration: July 2024 – May 2028 (Expected)
+Student Email: sanjai.m2024@vitstudent.ac.in
+Education Verified On: August 13, 2024
+
+About as a student: Sanjai describes himself as a tech enthusiast and aspiring AI Agent and Automation Engineer with strong interest in artificial intelligence, machine learning, and workflow automation using tools like n8n. He enjoys building real-world solutions that simplify processes and scale efficiently. He is easy to approach, curious by nature, and always excited to learn, build, and experiment with new technologies.
+
+---
+
+## PROFESSIONAL EXPERIENCE
+
+Role: Technical Lead
+Organization: CSED.VITC (Computer Science Engineering Department, VIT Chennai)
+Location: Chennai, Tamil Nadu, India
+Start Date: December 2025
+Status: Current / Ongoing
+
+---
+
+## CORE SKILLS & EXPERTISE
+
+### AI / Machine Learning
+- Artificial Intelligence (AI)
+- Machine Learning
+- Deep Learning
+- Large Language Models (LLM)
+- Small Language Models (SLMs)
+- Fine-Tuning (LoRA, MLX fine-tuning)
+- LoRA Model
+- Tokenization
+- AI Agents
+- Retrieval-Augmented Generation (RAG)
+- Chatbot Development
+- OpenAI API
+
+### Computer Vision
+- Computer Vision
+- Animal Detection / Object Detection
+
+### Automation & Infrastructure
+- n8n (workflow automation)
+- Automation
+- Process Automation
+
+### Web & Frontend Development
+- Front-End Development
+- Web Design
+- Web Development
+- Web Applications
+- Front-end Coding
+- Front-End Design
+- Responsive Web Design
+- Web Pages
+- Single Page Applications
+- Website Building
+
+### Other
+- Project Management
+- Crowd Control
+
+---
+
+## PROJECTS
+
+### 1. LoRA Fine-Tuning of TinyOllama (1.1B) for Emotionally Aware Responses
+Timeline: November 2025
+Description: Fine-tuned a 1.1B parameter Small Language Model (TinyOllama) using LoRA on Apple MLX to generate human-like, emotionally aware, and context-sensitive responses. Achieved effective behavioral adaptation by training only 0.435% of the model's total parameters. This work demonstrates efficient parameter-efficient fine-tuning (PEFT) suitable for local-device deployment, without requiring cloud-scale compute resources.
+Key concepts: LoRA, MLX, SLM, PEFT, TinyOllama, emotional AI, local deployment
+
+### 2. AI Email Responder Agent (n8n Automation)
+Timeline: August 2025
+Description: An AI-driven email automation agent that automatically drafts personalized replies using n8n workflows integrated with a goal-oriented database. Key features include goal-based automation (replies generated from objectives stored in a database), n8n workflow orchestration, context-aware NLP responses, and a learning system that adapts from past interactions. Designed for personal, academic, and professional use cases.
+Key concepts: n8n, AI agents, workflow automation, NLP, email automation, goal-oriented systems
+
+### 3. RAG-KnowledgeBot
+Description: An intelligent RAG-powered chatbot for knowledge retrieval and domain-specific Q&A. The system is context-aware and leverages Retrieval-Augmented Generation (RAG), LangChain, Pinecone, and OpenAI GPT to provide knowledge-driven responses from custom data sources.
+Key concepts: RAG, LangChain, Pinecone, OpenAI GPT, chatbot, vector database, knowledge retrieval
+
+### 4. Animal Detection at Low Light
+Timeline: August 2025
+Description: A computer vision system that enhances low-light RGB images of animals by generating software-simulated thermal representations. These processed images are then fed into a YOLOv8-based animal detection model, improving detection performance in poor illumination conditions. The project offers a cost-effective alternative to physical thermal imaging for wildlife monitoring and surveillance.
+Key concepts: Computer Vision, YOLOv8, object detection, low-light imaging, thermal simulation, wildlife monitoring
+
+### 5. To-Do List Maker (Web App)
+Description: A general-purpose, user-friendly web application designed for students and working professionals to organize and manage tasks. Helps users understand what needs to be done, what resources are required, and when to do it. Built as a frontend prototype.
+Key concepts: Frontend development, web application, task management, responsive design
+
+---
+
+## COURSES & LEARNING (LinkedIn Learning)
+
+Sanjai has completed or actively engaged with the following courses, demonstrating breadth across AI, LLMs, web development, data engineering, and design:
+
+### AI / LLM / RAG
+- Advanced LLMs with Retrieval Augmented Generation (RAG): Practical Projects for AI Applications (viewed Apr 2026)
+- RAG Fine-Tuning: Advanced Techniques for Accuracy and Model Performance (completed May 2026)
+- RAG and Fine-Tuning Explained (saved)
+- Build AI Agents and Chatbots with LangGraph (viewed May 2026)
+- Building Apps with AI Tools: ChatGPT, Semantic Kernel, and LangChain (viewed Jun 2025)
+- Model Context Protocol (MCP): Hands-On with Agentic AI (viewed Apr 2026)
+- Enterprise AI Development with GitHub Models and Azure (viewed Dec 2025)
+
+### React / Frontend
+- Building Scalable React UI Component Libraries with Storybook (viewed Oct 2025)
+- React: Server-Side Rendering (viewed Mar 2025)
+- React: Working with Loops (viewed Jul 2025)
+- Testing React Applications with Jest and React Testing Library (viewed Aug 2025)
+- Coding for Visual Learners: Learning JavaScript from Scratch (viewed Mar 2025)
+
+### Data & Backend
+- ETL in Python and SQL (viewed Mar 2026)
+- Level Up: Advanced SQL (viewed May 2025)
+
+### Design
+- How Design Makes Us Think (viewed Mar 2025)
+- Learning Graphic Design: Layouts (viewed May 2025)
+- Using AI in the UX Design Process (viewed Jun 2025)
+
+### Other Technical
+- ArcGIS Pro Essential Training (viewed Aug 2025)
+- Windows Server 2019: High Availability (viewed Aug 2024)
+- Spatial Mixing in Dolby Atmos using Pro Tools (viewed Oct 2025)
+
+---
+
+## PROFESSIONAL INTERESTS & COMMUNITY
+
+Sanjai follows a broad set of organizations, indicating his professional interests and community involvement:
+
+AI/Tech Companies: OpenAI, IBM, Microsoft, Google, Infosys, Sify Technologies, DEEPX, Katpro Technologies, Xenovex Technologies, Congruent Solutions, Manifold Systems, Interv
+
+AI Education & Community: AI Vidya, Infosys Springboard, Zoho Schools of Learning, Zoho for Startups
+
+Campus Clubs & Organizations at VIT Chennai: CSED.VITC, Artificial Intelligence Club VIT Chennai, Open Source Programming Club VITC, GDG on Campus VIT Chennai, CodeChef VIT-Chennai Chapter, NEXUS VIT, E-Cell VIT Chennai
+
+Healthcare/Industry Tech: GE HealthCare, Siemens Healthineers, Aramco
+
+Startup & Business: Startupro.in, STARTUP HABIT, Tamilpreneur, Business Bosses, NexEV Solutions (NextEV), SpectoV, :bitspace
+
+---
+
+## WHAT SANJAI IS LOOKING FOR
+
+Sanjai is actively open to opportunities in:
+- AI/ML Engineering roles and internships
+- Computer Vision projects and research
+- LLM and Generative AI development
+- n8n and intelligent automation projects
+- Collaborative research in Agentic AI systems
+- Frontend/Full-stack roles with AI integration
+
+He is open to recruiter outreach and is willing to share his profile with job posters.
+
+---
+
+## SUMMARY FOR CHATBOT / Q&A CONTEXT
+
+Q: Who is Sanjai Murugan?
+A: Sanjai Murugan is a 2nd-year B.Tech Computer Science student at VIT Chennai (VITC '28), specializing in AI, Machine Learning, Computer Vision, and LLM development. He is also a Technical Lead at CSED.VITC.
+
+Q: What are Sanjai's main technical skills?
+A: His core areas are LLMs, RAG systems, LoRA fine-tuning, AI agents, n8n automation, computer vision (YOLOv8), and frontend web development (React, HTML/CSS/JS).
+
+Q: What projects has Sanjai built?
+A: He has built a LoRA fine-tuned TinyOllama for emotional responses, an AI email responder agent using n8n, a RAG-based knowledge chatbot using LangChain and Pinecone, an animal detection system for low-light conditions using YOLOv8, and a task management web app.
+
+Q: What tools and frameworks does Sanjai use?
+A: He works with Python, n8n, LangChain, Pinecone, OpenAI API, YOLOv8, MLX (Apple), LoRA, React, JavaScript, SQL, and Java.
+
+Q: Where is Sanjai based?
+A: Madurantakam, Tamil Nadu, India. He studies at VIT Chennai.
+
+Q: What is Sanjai looking for professionally?
+A: Internships, research roles, and collaborations in AI/ML, Computer Vision, LLM development, and intelligent automation.
+
+Q: What leadership roles has Sanjai held?
+A: He is currently a Technical Lead at CSED.VITC (since December 2025).
+
+Q: What makes Sanjai's work distinctive?
+A: He focuses on efficient, real-world deployable AI systems — such as fine-tuning small models (under 1% of parameters with LoRA), building goal-oriented automation agents, and applying computer vision in challenging low-light environments using cost-effective simulation instead of physical hardware.
