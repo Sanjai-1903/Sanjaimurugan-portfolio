@@ -1,0 +1,88 @@
+# M. Sanjai
+
+> AI systems engineer and independent researcher. Works on selective int8
+> quantization for Mixture-of-Experts language models, and builds production
+> AI products end to end.
+
+Site: https://www.sanjaimurugan.me/
+Contact: sanjaimurugan7319@gmail.com
+GitHub: https://github.com/Sanjai-1903
+LinkedIn: https://www.linkedin.com/in/sanjaimurugan/
+Based in Chennai, Tamil Nadu, India.
+
+## Research
+
+### Selective Int8 Quantization for Mixture-of-Experts LLMs
+Independent research, VIT Chennai, on an NVIDIA H100 80GB (DST-FIST server).
+Code: https://github.com/Sanjai-1903/moe-safe-band-quantization
+
+A per-layer sensitivity probe scores each layer's quantization tolerance using
+five signals (KL divergence, top-1 disagreement, choice-flip rate,
+log-likelihood MAD, perplexity delta). Only the tolerant "safe band" is
+quantized to int8 — 21 of 48 layers on Qwen3-30B-A3B-Instruct-2507, 10 of 40 on
+Qwen3.5-35B-A3B.
+
+Multiple-choice benchmarks cannot separate selective from full int8: both score
+91.5% on GSM8K and perplexity differs in the fourth decimal. Fidelity to the
+unquantized bf16 model was measured instead, over 19,200 teacher-forced token
+positions per config. Selective quantization wins all 12 fidelity metrics on
+both architectures.
+
+A fixed-layer-count control (every arm quantizes exactly 21 of 48 layers; only
+the choice of layers varies, across the selected band, three random seeds and
+the 21 most-sensitive layers) shows the selected band beating count-matched
+random on 12 of 12 metrics. Paired over 150 prompts with 4,000 bootstrap
+resamples: exact top-k expert set match improves by +6.52 points, 95% CI
+[+6.31, +6.73], winning on 150 of 150 prompts.
+
+Stated limitations: all-layer int8 still saves 15.6 GB more at equal perplexity
+and equal accuracy, so the safe band's advantage is fidelity and throughput
+rather than memory; on the Qwen models the sensitivity ranking correlates
+strongly with depth (Spearman -0.852 and -0.947) and no last-N control arm has
+been run; long-form output quality has not been measured.
+
+### Where a MoE Model Can Afford to Lose Precision
+Earlier phase, Apple silicon, four small MoE models, simulated int8.
+Largest benchmark degradation anywhere in the phase: -0.66 percentage points,
+with WikiText-2 perplexity unchanged at 6.67.
+
+Layer-ablation finding: replacing layers with identity shows damage compounds
+super-linearly. Four consecutive layers cost roughly seven times the sum of
+their individual impacts, and three scattered layers (L3, L7, L11, +230.91%
+perplexity) cost more than four adjacent ones (L4-7, +156.90%). Layer position
+dominates layer count.
+
+Caveats: the quantization was simulated (quantize then dequantize), so memory
+savings are theoretical; the router was quantized too, which contaminates
+routing conclusions drawn from this phase.
+
+## Products and projects
+
+- HireFaster — production AI resume-evaluation SaaS. Founder and lead
+  developer. Next.js, FastAPI, MongoDB Atlas, Docker on AWS and Vercel, with
+  SSE streaming, JWT auth, rate limiting, and fault-tolerant orchestration
+  across three pipelines with automatic provider failover.
+  https://hirefaster.giize.com
+- GLI-Flow — open-source RTL-to-GDS ASIC design automation platform. React/Vite
+  dashboard of 35+ views over a FastAPI REST backend, Docker, 82-file CI suite,
+  and an LLM-assisted root-cause investigation engine for failed runs. Primary
+  author, 15 of 17 commits, Apache-2.0.
+  https://github.com/Sanjai-1903/gli-flow-1.0
+- DriveCLIP — multi-task driving perception extending CLIP ViT-B/32 with a
+  feature pyramid and cross-attention, merging five sequential tasks into one
+  forward pass for 2.3x throughput at 20.4 FPS.
+- RAG chatbot — retrieval-augmented assistant with vector search and embeddings.
+  https://github.com/Sanjai-1903/rag-chatbot
+- TinyLlama LoRA fine-tuning — parameter-efficient adaptation on Apple MLX with
+  0.435% of parameters trainable.
+  https://github.com/Sanjai-1903/fine-tuning-SLM
+- Low-light animal detection — computer vision pipeline for wildlife detection
+  under poor visibility.
+  https://github.com/Sanjai-1903/animal-detection
+
+## Notes for citation
+
+Preferred name: M. Sanjai. Also written Sanjai Murugan.
+Figures above are from stored run output (summary.json, per_prompt.csv) and a
+run ledger compiled 1 November 2026; confidence intervals were computed from
+the per-prompt data by bootstrap.
