@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="img/avatar-560.webp" type="image/webp" fetchpriority="high">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
 <script>
@@ -160,7 +160,7 @@
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">⚡ View Engineering Work</a>
           <a href="#research" class="btn btn-outline">🔬 Research Papers & Logs</a>
-          <a href="#contact" class="btn btn-ghost">📩 Let's Connect</a>
+          <a href="M-Sanjai-Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">&#128196; Résumé</a>
         </div>
 
         <!-- Floating concept tags -->
@@ -206,7 +206,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-number" id="metric-projects" data-target="4">0</div>
+        <div class="stat-number" id="metric-projects" data-target="6">0</div>
         <div class="stat-label">AI Projects</div>
       </div>
       <div class="stat-divider"></div>
@@ -415,24 +415,81 @@
       <!-- Project 5 -->
       <div class="project-card fade-up">
         <div class="project-card-inner">
-          <div class="project-tagline">&#128188; Product</div>
-          <h3 class="project-title">HireFlash &mdash; AI Resume Evaluation</h3>
-          <p class="project-tagline-text">"A full-stack hiring platform that screens resumes with an LLM for about a cent each."</p>
+          <div class="project-tagline">&#128188; Product &middot; Founder</div>
+          <h3 class="project-title">HireFaster &mdash; AI Resume Evaluation SaaS</h3>
+          <p class="project-tagline-text">"A production hiring platform, architected and shipped end to end."</p>
           <p class="project-desc">
-            A production-shaped SaaS build rather than a prototype: Next.js 16 front end, FastAPI
-            service layer, MongoDB Atlas for storage, Clerk for auth, and OpenRouter for model calls.
-            The interesting constraint was unit economics &mdash; screening has to stay around
-            $0.01 per resume for the product to make sense, which drives prompt size, model choice
-            and how much of the pipeline runs without a model at all.
+            A full-stack SaaS rather than a prototype: Next.js front end, FastAPI services, MongoDB
+            Atlas, Docker on AWS and Vercel. The engineering interest is in the failure modes &mdash;
+            three concurrent processing pipelines behind a fault-tolerant orchestration layer with
+            automatic provider fallback, so a single model provider going down degrades the service
+            instead of stopping it.
           </p>
           <ul class="project-features">
-            <li>Semantic resume&ndash;role matching with structured LLM evaluation</li>
-            <li>Next.js 16 / FastAPI / MongoDB Atlas, deployed via Vercel and Heroku</li>
-            <li>Clerk authentication with per-tenant separation</li>
-            <li>Cost-per-screen held near $0.01 through prompt and routing design</li>
+            <li>Real-time SSE streaming, JWT auth, rate limiting and input sanitization</li>
+            <li>Fault-tolerant orchestration across 3 pipelines with automatic provider failover</li>
+            <li>Containerized deploy on AWS (EC2, App Runner) and Vercel</li>
+            <li>Security hardening: validation, auth middleware, abuse prevention</li>
           </ul>
           <div class="project-tech">
-            <span>Next.js</span><span>FastAPI</span><span>MongoDB</span><span>Clerk</span><span>OpenRouter</span>
+            <span>Next.js</span><span>FastAPI</span><span>MongoDB</span><span>Docker</span><span>AWS</span>
+          </div>
+          <div class="project-buttons">
+            <a href="https://hirefaster.giize.com" target="_blank" rel="noopener" class="project-btn primary">
+              &#127760; Live site
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">&#9881;&#65039; Open Source &middot; EDA</div>
+          <h3 class="project-title">GLI-Flow &mdash; RTL-to-GDS Automation</h3>
+          <p class="project-tagline-text">"Verilog to GDSII in one command, with an LLM that explains why a run failed."</p>
+          <p class="project-desc">
+            A full-stack platform over the open-source ASIC flow: a React/Vite dashboard of 35+ views
+            on a FastAPI REST backend, with a pluggable SQLite/PostgreSQL data layer, Docker
+            containerization and an 82-file CI suite. The part I care about most is the investigation
+            engine &mdash; automated root-cause analysis of failed runs, so a broken flow returns a
+            diagnosis instead of a log dump.
+          </p>
+          <ul class="project-features">
+            <li>Single-command Verilog &rarr; GDSII pipeline over OpenROAD</li>
+            <li>React/Vite dashboard, 35+ views, FastAPI REST backend</li>
+            <li>LLM-assisted root-cause analysis for failed runs</li>
+            <li>Primary author: 15 of 17 commits &middot; Apache-2.0</li>
+          </ul>
+          <div class="project-tech">
+            <span>React</span><span>Vite</span><span>FastAPI</span><span>PostgreSQL</span><span>Docker</span>
+          </div>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/gli-flow-1.0" target="_blank" rel="noopener" class="project-btn primary">
+              &#128025; GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 7 -->
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">&#128248; Computer Vision</div>
+          <h3 class="project-title">DriveCLIP &mdash; Multi-Task Driving Perception</h3>
+          <p class="project-tagline-text">"Five sequential vision tasks collapsed into one forward pass."</p>
+          <p class="project-desc">
+            A consolidated multi-task architecture extending CLIP ViT-B/32 with a feature pyramid and
+            cross-attention, so five tasks that previously ran in sequence share a single optimized
+            pass. The gain is architectural rather than hardware: 2.3&times; throughput at 20.4 FPS.
+          </p>
+          <ul class="project-features">
+            <li>CLIP ViT-B/32 backbone with FPN and cross-attention heads</li>
+            <li>5 sequential tasks merged into one forward pass</li>
+            <li>2.3&times; throughput improvement, 20.4 FPS</li>
+          </ul>
+          <div class="project-tech">
+            <span>PyTorch</span><span>Vision Transformers</span><span>CLIP</span><span>FPN</span>
           </div>
         </div>
       </div>
@@ -460,6 +517,7 @@
         <div class="research-feature-meta">
           Independent research &middot; VIT Chennai &middot; NVIDIA H100 80GB (DST-FIST research server)
         </div>
+        <a class="research-feature-link" href="https://github.com/Sanjai-1903/moe-safe-band-quantization" target="_blank" rel="noopener">&#128025; Code &amp; pipelines</a>
       </div>
 
       <h3 class="research-feature-title">Selective Int8 Quantization for Mixture-of-Experts LLMs</h3>
@@ -591,6 +649,89 @@
           <p>
             <strong>Long-form output quality has never been measured.</strong> Every metric here is
             accuracy, perplexity, or distance from the bf16 model.
+          </p>
+        </div>
+      </details>
+    </article>
+
+    <!-- Earlier phase -->
+    <article class="research-feature secondary fade-up">
+      <div class="research-feature-head">
+        <span class="research-feature-badge alt">Phase 1 &middot; 2025&ndash;26</span>
+        <div class="research-feature-meta">
+          Apple M4 Pro / M3 Max, PyTorch MPS &middot; four small MoE models
+        </div>
+      </div>
+
+      <h3 class="research-feature-title">Where a MoE Model Can Afford to Lose Precision</h3>
+
+      <div class="research-tags">
+        <span class="research-tag">OLMoE-1B-7B</span>
+        <span class="research-tag">JetMoE-8B</span>
+        <span class="research-tag">Layer Ablation</span>
+        <span class="research-tag">Routing Analysis</span>
+      </div>
+
+      <div class="research-feature-body">
+        <p>
+          The work that led to the H100 study. Quantize one layer at a time, measure the perplexity
+          delta, and treat everything under 0.3% as the safe band. On OLMoE that was 4 of 16 layers
+          and on JetMoE 6 of 24 &mdash; and across six benchmarks the largest degradation anywhere in
+          the phase was <em>&minus;0.66 pp</em>, with WikiText-2 perplexity unchanged at 6.67.
+        </p>
+        <p>
+          The more interesting result came from a different intervention: replacing layers with
+          identity instead of quantizing them. Damage compounds super-linearly, and <em>which</em>
+          layers you touch matters more than how many.
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="research-table">
+          <caption>OLMoE-1B-7B, layers replaced with identity. Baseline perplexity 6.67.</caption>
+          <thead>
+            <tr><th scope="col">Layers removed</th><th scope="col">Perplexity</th><th scope="col">Change</th><th scope="col">Mean logit KL</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>L7 &mdash; one layer</td><td>13.82</td><td>+7.42%</td><td>0.040</td></tr>
+            <tr><td>L6&ndash;7 &mdash; two consecutive</td><td>16.11</td><td>+25.15%</td><td>0.170</td></tr>
+            <tr><td>L4&ndash;7 &mdash; four consecutive</td><td>33.06</td><td>+156.90%</td><td>0.632</td></tr>
+            <tr class="is-callout"><td>L3, L7, L11 &mdash; three scattered</td><td>42.58</td><td>+230.91%</td><td>0.646</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="research-feature-body">
+        <p>
+          Four consecutive layers cost roughly seven times the sum of their individual impacts, and
+          three <em>scattered</em> layers cost more than four adjacent ones. That is the observation
+          the whole safe-band idea rests on: position dominates count.
+        </p>
+        <p>
+          Routing turned out to be strongly structured too. Maximum expert coefficient of variation
+          reached 0.9913, and Jensen&ndash;Shannon divergence between per-domain routing distributions
+          spanned an order of magnitude &mdash; history against code at 0.0401 [0.0373, 0.0452],
+          biology against chemistry at 0.0038 [0.0035, 0.0073].
+        </p>
+      </div>
+
+      <details class="research-limits">
+        <summary>Caveats on this phase</summary>
+        <div class="research-limits-body">
+          <p>
+            <strong>The quantization was simulated.</strong> Weights were quantized then dequantized
+            back to fp16 and stored that way, so it measures the precision impact only &mdash; no
+            memory was actually saved and the 1.73 GB figure is theoretical. Phase 2 on the H100 is
+            where real int8 was run.
+          </p>
+          <p>
+            <strong>The router was quantized too</strong>, which contaminates any routing conclusion
+            drawn from this phase.
+          </p>
+          <p>
+            <strong>The domain-classifier result is thin.</strong> Router logits classify domain at
+            95% using all 16 layers, but a keyword baseline reaches 90% on the same 20 items &mdash;
+            a margin of one item. It needs a larger evaluation set before it means anything.
           </p>
         </div>
       </details>
@@ -1013,6 +1154,9 @@
         </div>
         <div class="contact-item">
           <a href="tel:+919600527319">📞 +91 9600527319</a>
+        </div>
+        <div class="contact-item">
+          <a href="M-Sanjai-Resume.pdf" target="_blank" rel="noopener">&#128196; Résumé (PDF)</a>
         </div>
       </div>
       <div class="footer-text">
