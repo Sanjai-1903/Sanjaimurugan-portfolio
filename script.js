@@ -440,6 +440,11 @@ let timelineEl = null;
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
+  // Read the accent from the stylesheet so the canvas follows the palette
+  // instead of pinning its own copy of the colour.
+  const ACCENT = (getComputedStyle(root).getPropertyValue('--accent-cyan-rgb').trim()
+                  || '6, 182, 212');
+
   const LINK_DIST = 120;
   const MOUSE_DIST = 150;
 
@@ -484,7 +489,7 @@ let timelineEl = null;
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
+      ctx.fillStyle = `rgba(${ACCENT}, ${p.opacity})`;
       ctx.fill();
     }
 
@@ -501,7 +506,7 @@ let timelineEl = null;
         if (dy > LINK_DIST || dy < -LINK_DIST) continue;
         const d2 = dx * dx + dy * dy;
         if (d2 > LINK_DIST * LINK_DIST) continue;
-        ctx.strokeStyle = `rgba(6, 182, 212, ${(0.08 * (1 - Math.sqrt(d2) / LINK_DIST)).toFixed(3)})`;
+        ctx.strokeStyle = `rgba(${ACCENT}, ${(0.08 * (1 - Math.sqrt(d2) / LINK_DIST)).toFixed(3)})`;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(q.x, q.y);
@@ -511,7 +516,7 @@ let timelineEl = null;
       const mdx = mouseX - p.x, mdy = mouseY - p.y;
       if (mdx * mdx + mdy * mdy < MOUSE_DIST * MOUSE_DIST) {
         const md = Math.sqrt(mdx * mdx + mdy * mdy);
-        ctx.strokeStyle = `rgba(6, 182, 212, ${(0.15 * (1 - md / MOUSE_DIST)).toFixed(3)})`;
+        ctx.strokeStyle = `rgba(${ACCENT}, ${(0.15 * (1 - md / MOUSE_DIST)).toFixed(3)})`;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(mouseX, mouseY);
