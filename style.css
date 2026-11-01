@@ -611,8 +611,8 @@ section { position: relative; }
 .cert-pdf {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 10px; padding: 32px 16px;
-  width: 100%; height: 100%; min-height: 160px;
+  gap: 8px; padding: 20px 16px;
+  width: 100%; height: 180px;   /* same as img.cert-image */
   text-decoration: none;
   background: rgba(6,182,212,0.04);
   border-radius: var(--radius-md);
@@ -628,11 +628,14 @@ section { position: relative; }
 .cert-pdf-icon { font-size: 2rem; }
 .cert-pdf-name {
   font-family: var(--font-mono);
-  font-size: 0.82rem; color: var(--accent-cyan);
+  font-size: 0.8rem; color: var(--accent-cyan);
   text-align: center; font-weight: 600;
+  line-height: 1.4;
+  max-width: 100%;
 }
 .cert-pdf-hint {
   font-size: 0.7rem; color: var(--text-muted);
+  text-align: center;
 }
 
 /* ========== ABOUT SECTION ========== */
@@ -702,6 +705,8 @@ section { position: relative; }
 .info-item {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
   padding: 10px 16px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-color);
@@ -716,7 +721,9 @@ section { position: relative; }
 .info-value {
   color: var(--text-primary);
   font-weight: 600;
+  text-align: right;
 }
+.info-label { flex-shrink: 0; }
 .about-text p {
   color: var(--text-secondary);
   margin-bottom: 20px;
@@ -1408,7 +1415,9 @@ section { position: relative; }
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.cert-image {
+/* img.cert-image, not .cert-image: the PDF slide shares the class on an <a>
+   and must keep its own flex-column layout (see .cert-pdf above). */
+img.cert-image {
   width: 100%;
   height: 180px;
   object-fit: contain;
@@ -1416,20 +1425,7 @@ section { position: relative; }
   border: 1px solid var(--border-color);
   background: var(--bg-primary);
   padding: 16px;
-  flex-grow: 1;
   display: block;
-}
-.cert-image.pdf {
-  background: var(--bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--accent-cyan);
-}
-.cert-image.pdf::before {
-  content: "📄 PDF Certificate";
 }
 
 /* ========== BLOG ========== */
