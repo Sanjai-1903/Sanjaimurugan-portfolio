@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="img/avatar-560.webp" type="image/webp" fetchpriority="high">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=14">
 <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
 <script>
@@ -70,9 +70,6 @@
     <div class="cmd-result" onclick="scrollToSection('research')">
       <span>🔬</span> Research <kbd>⌘+4</kbd>
     </div>
-    <div class="cmd-result" onclick="scrollToSection('startup')">
-      <span>💡</span> Startup Concept <kbd>⌘+5</kbd>
-    </div>
     <div class="cmd-result" onclick="scrollToSection('journey')">
       <span>🛤️</span> My Journey <kbd>⌘+6</kbd>
     </div>
@@ -101,7 +98,6 @@
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
-      <a href="#startup">Startup</a>
       <a href="#journey">Journey</a>
       <a href="#techstack">Toolkit</a>
       <a href="#certifications">Credentials</a>
@@ -173,10 +169,6 @@
           <div class="float-card">RAG Systems</div>
           <div class="float-card">Local Inference</div>
           <div class="float-card">Agentic Workflows</div>
-          <div class="float-card">Neural Networks</div>
-          <div class="float-card">Machine Learning</div>
-          <div class="float-card">AI Automation</div>
-          <div class="float-card">Computer Vision</div>
           <div class="float-card">Multi-Agent Arch.</div>
         </div>
 
@@ -214,12 +206,12 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-number" id="metric-projects" data-target="8">0</div>
+        <div class="stat-number" id="metric-projects" data-target="4">0</div>
         <div class="stat-label">AI Projects</div>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-number" id="metric-certs" data-target="6">0</div>
+        <div class="stat-number" id="metric-certs" data-target="5">0</div>
         <div class="stat-label">Certifications</div>
       </div>
 
@@ -420,29 +412,27 @@
         </div>
       </div>
 
-      <!-- Project 5: New - Startup concept prototype -->
+      <!-- Project 5 -->
       <div class="project-card fade-up">
         <div class="project-card-inner">
-          <div class="project-tagline">💡 Side Project</div>
-          <h3 class="project-title">Semantic ATS Skill Matching Engine</h3>
-          <p class="project-tagline-text">"AI-powered skill extraction and semantic matching for hiring workflows."</p>
+          <div class="project-tagline">&#128188; Product</div>
+          <h3 class="project-title">HireFlash &mdash; AI Resume Evaluation</h3>
+          <p class="project-tagline-text">"A full-stack hiring platform that screens resumes with an LLM for about a cent each."</p>
           <p class="project-desc">
-            A semantic ATS (Applicant Tracking System) software developed using Agentic AI workflows powered through n8n automation. The platform is designed to intelligently analyze resumes, understand candidate skills semantically, match applicants with job requirements, and automate hiring workflows in real time. By leveraging AI-driven decision making and contextual understanding, the system streamlines recruitment operations and improves candidate-job matching accuracy.
+            A production-shaped SaaS build rather than a prototype: Next.js 16 front end, FastAPI
+            service layer, MongoDB Atlas for storage, Clerk for auth, and OpenRouter for model calls.
+            The interesting constraint was unit economics &mdash; screening has to stay around
+            $0.01 per resume for the product to make sense, which drives prompt size, model choice
+            and how much of the pipeline runs without a model at all.
           </p>
           <ul class="project-features">
-            <li>Semantic resume parsing and intelligent candidate-job matching</li>
-            <li>Agentic AI workflow orchestration using n8n automation</li>
-            <li>Automated recruitment pipeline and candidate screening</li>
-            <li>Context-aware skill evaluation using vector embeddings</li>
-            <li>AI-assisted hiring insights and workflow optimization</li>
+            <li>Semantic resume&ndash;role matching with structured LLM evaluation</li>
+            <li>Next.js 16 / FastAPI / MongoDB Atlas, deployed via Vercel and Heroku</li>
+            <li>Clerk authentication with per-tenant separation</li>
+            <li>Cost-per-screen held near $0.01 through prompt and routing design</li>
           </ul>
           <div class="project-tech">
-            <span>n8n</span><span>Agentic AI</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://github.com/Sanjai-1903/Semantic-ATS-software" target="_blank" class="project-btn primary">
-              🐙 GitHub
-            </a>
+            <span>Next.js</span><span>FastAPI</span><span>MongoDB</span><span>Clerk</span><span>OpenRouter</span>
           </div>
         </div>
       </div>
@@ -468,7 +458,7 @@
       <div class="research-feature-head">
         <span class="research-feature-badge">Featured Study</span>
         <div class="research-feature-meta">
-          Independent research · VIT Chennai · NVIDIA H100 (DST-FIST research server)
+          Independent research &middot; VIT Chennai &middot; NVIDIA H100 80GB (DST-FIST research server)
         </div>
       </div>
 
@@ -483,223 +473,201 @@
 
       <div class="research-feature-body">
         <p>
-          Mixture-of-Experts models activate few parameters per token but must keep every expert in memory.
-          Standard post-training quantization treats all layers as equally important. I built a pipeline that
-          scores each layer's quantization tolerance using five signals — KL divergence, top-1 disagreement,
-          choice-flip rate, log-likelihood deviation and perplexity delta — and quantizes only the tolerant
-          <em>safe band</em>.
+          MoE models activate few parameters per token but must keep every expert in memory, and
+          standard post-training quantization treats all layers as equally important. I built a
+          pipeline that scores each layer&rsquo;s quantization tolerance with five signals &mdash; KL
+          divergence, top-1 disagreement, choice-flip rate, log-likelihood MAD and perplexity delta
+          &mdash; then quantizes only the tolerant <em>safe band</em>. On Qwen3-30B-A3B that band is
+          21 of 48 layers; on Qwen3.5-35B-A3B it is 10 of 40.
         </p>
         <p>
-          Because multiple-choice benchmarks showed no difference between selective and full quantization, I
-          designed a fidelity evaluation instead, treating the unquantized model as ground truth: KL divergence
-          over 19,200 token positions, expert-routing overlap, and tokens-until-divergence in free-running
-          generation. Selective quantization won all 12 metrics on two different MoE architectures.
+          Multiple-choice benchmarks could not tell the two apart. Selective and full int8 both score
+          <em>91.5% on GSM8K</em>, and perplexity differs in the fourth decimal. So I measured
+          something else: fidelity to the unquantized model as ground truth &mdash; KL divergence over
+          19,200 teacher-forced token positions, expert-routing overlap, and tokens-until-divergence
+          in free-running generation.
+        </p>
+      </div>
+
+      <figure class="research-chart">
+        <figcaption>
+          Divergence from the bf16 model, Qwen3-30B-A3B. Lower is better; every axis starts at zero.
+        </figcaption>
+        <!-- Values from fidelity_output/.../summary.json, 150 prompts x 128 positions per config. -->
+        <div class="chart-rows">
+          <div class="chart-row">
+            <span class="chart-label">GSM8K accuracy gap</span>
+            <span class="chart-bars">
+              <span class="bar safe"  style="--v:0"   ><i></i><b>0.0</b></span>
+              <span class="bar allq"  style="--v:0"   ><i></i><b>0.0</b></span>
+            </span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">Top-1 disagreement</span>
+            <span class="chart-bars">
+              <span class="bar safe"  style="--v:2.29"><i></i><b>2.29</b></span>
+              <span class="bar allq"  style="--v:2.89"><i></i><b>2.89</b></span>
+            </span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">Expert-slot mismatch</span>
+            <span class="chart-bars">
+              <span class="bar safe"  style="--v:2.22"><i></i><b>2.22</b></span>
+              <span class="bar allq"  style="--v:5.66"><i></i><b>5.66</b></span>
+            </span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">Top-k set mismatch</span>
+            <span class="chart-bars">
+              <span class="bar safe"  style="--v:5.37"><i></i><b>5.37</b></span>
+              <span class="bar allq"  style="--v:13.29"><i></i><b>13.29</b></span>
+            </span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">Mean KL (&times;10&#8315;&#179; nats)</span>
+            <span class="chart-bars">
+              <span class="bar safe"  style="--v:1.75"><i></i><b>1.75</b></span>
+              <span class="bar allq"  style="--v:3.56"><i></i><b>3.56</b></span>
+            </span>
+          </div>
+        </div>
+        <div class="chart-legend">
+          <span><i class="sw safe"></i>Safe band &mdash; 21 of 48 layers</span>
+          <span><i class="sw allq"></i>All layers &mdash; 48 of 48</span>
+        </div>
+      </figure>
+
+      <div class="research-feature-body">
+        <p>
+          The benchmark gap is exactly zero. The behavioural gap is a factor of two to two and a half.
+          Safe band wins all twelve fidelity metrics on both architectures.
         </p>
         <p>
-          To rule out the obvious objection — that quantizing fewer layers trivially drifts less — I ran a control
-          holding the layer count fixed and varying only <em>which</em> layers were chosen, across random and
-          inverted-ranking baselines. The selected band still won every metric.
+          To rule out the obvious objection &mdash; that quantizing fewer layers trivially drifts less
+          &mdash; I ran a control where every arm quantizes <em>exactly 21 of 48 layers</em> and only
+          the choice of layers changes: the selected band, three random draws, and the 21
+          most-sensitive layers. The selected band beat count-matched random on 12 of 12 metrics.
+          Paired over the same 150 prompts with 4,000 bootstrap resamples, exact top-k set match
+          improves by <em>+6.52 points, 95% CI [+6.31, +6.73], winning on 150 of 150 prompts</em>.
         </p>
       </div>
 
       <div class="research-feature-stats">
         <div class="rf-stat">
           <span class="rf-stat-value">12 / 12</span>
-          <span class="rf-stat-label">Fidelity metrics won</span>
+          <span class="rf-stat-label">Fidelity metrics won, both models</span>
         </div>
         <div class="rf-stat">
           <span class="rf-stat-value">+6.52</span>
-          <span class="rf-stat-label">Expert-routing match (95% CI 6.31–6.73)</span>
+          <span class="rf-stat-label">Top-k set match vs count-matched random</span>
         </div>
         <div class="rf-stat">
           <span class="rf-stat-value">150 / 150</span>
-          <span class="rf-stat-label">Test prompts won</span>
+          <span class="rf-stat-label">Prompts won in the control</span>
         </div>
         <div class="rf-stat">
           <span class="rf-stat-value">19,200</span>
-          <span class="rf-stat-label">Token positions evaluated</span>
+          <span class="rf-stat-label">Token positions scored per config</span>
         </div>
       </div>
+
+      <details class="research-limits">
+        <summary>What this does not yet show</summary>
+        <div class="research-limits-body">
+          <p>
+            <strong>All-layer int8 is still the better memory trade.</strong> It saves 15.6 GB more
+            than the safe band at equal perplexity and equal multiple-choice accuracy. The safe
+            band&rsquo;s measured advantages are fidelity and throughput, not footprint.
+          </p>
+          <p>
+            <strong>On the Qwen models the ranking may be restating depth.</strong> Spearman
+            correlation between layer index and sensitivity is &minus;0.852 (30B) and &minus;0.947
+            (35B), and a plain &ldquo;deepest N layers&rdquo; band recovers most of the advantage over
+            random. A last-N control arm would separate the two and has not been run. On the smaller
+            Phase 1 models the safe tier sat mid-network, where a depth heuristic would have picked
+            the wrong layers &mdash; so depth is not a universal answer, but the Qwen result is not
+            yet clean.
+          </p>
+          <p>
+            <strong>Long-form output quality has never been measured.</strong> Every metric here is
+            accuracy, perplexity, or distance from the bf16 model.
+          </p>
+        </div>
+      </details>
     </article>
 
     <div class="research-grid">
       <div class="research-card fade-up">
         <span class="research-num">01</span>
-        <h3><span>Neuron Specialization Analysis</span></h3>
+        <h3><span>Layer sensitivity profiling</span></h3>
         <div class="research-tags">
-          <span class="research-tag">Activation Patterns</span>
-          <span class="research-tag">Sparse Routing</span>
-          <span class="research-tag">Transformer Internals</span>
+          <span class="research-tag">7 MoE models</span>
+          <span class="research-tag">Per-layer probes</span>
         </div>
-        <p>Studying activation clustering and sparse routing ideas within transformer layers. Investigating specialization patterns that emerge naturally during training and how they can be exploited for more efficient computation.</p>
+        <p>Quantize one layer at a time, score the damage, cut the band at a knee. Run across OLMoE-1B-7B, JetMoE-8B, Qwen1.5-MoE, Qwen3-30B and Qwen3.5-35B. Qwen1.5-MoE came back degenerate &mdash; the search marked all 24 layers safe &mdash; which is itself a useful negative result.</p>
       </div>
 
       <div class="research-card fade-up">
         <span class="research-num">02</span>
-        <h3><span>Efficient Inference Exploration</span></h3>
+        <h3><span>Layer skipping &amp; hidden-state drift</span></h3>
         <div class="research-tags">
-          <span class="research-tag">KV Cache</span>
-          <span class="research-tag">Selective Attention</span>
-          <span class="research-tag">Compute Reduction</span>
+          <span class="research-tag">Ablation</span>
+          <span class="research-tag">OLMoE</span>
         </div>
-        <p>Exploring KV cache optimization strategies, selective computation methods, and various compute reduction techniques to enable faster, more memory-efficient inference on consumer hardware.</p>
+        <p>Replacing layers with identity rather than quantizing them. Damage compounds super-linearly &mdash; four consecutive layers cost roughly seven times the sum of their individual impacts &mdash; and three scattered layers cost more than four adjacent ones. Which layers you touch dominates how many.</p>
       </div>
 
       <div class="research-card fade-up">
         <span class="research-num">03</span>
-        <h3><span>Dynamic Expert Routing</span></h3>
+        <h3><span>Expert routing as domain structure</span></h3>
         <div class="research-tags">
-          <span class="research-tag">MoE</span>
-          <span class="research-tag">Adaptive Systems</span>
-          <span class="research-tag">Hierarchical Execution</span>
+          <span class="research-tag">Routing</span>
+          <span class="research-tag">JS divergence</span>
         </div>
-        <p>Designing modular activation systems with adaptive routing logic. Exploring hierarchical execution concepts where different subnetworks handle different complexity levels of tasks.</p>
+        <p>On OLMoE, maximum expert coefficient of variation reaches 0.9913, and Jensen&ndash;Shannon divergence between per-domain routing distributions spans an order of magnitude, clustering along semantic lines &mdash; history against code diverges ten times more than biology against chemistry.</p>
       </div>
 
       <div class="research-card fade-up">
         <span class="research-num">04</span>
-        <h3><span>Agent Memory Architectures</span></h3>
+        <h3><span>Parameter-efficient fine-tuning</span></h3>
         <div class="research-tags">
-          <span class="research-tag">Long-term Memory</span>
-          <span class="research-tag">RAG</span>
-          <span class="research-tag">Multi-Agent Sync</span>
+          <span class="research-tag">LoRA</span>
+          <span class="research-tag">Apple MLX</span>
         </div>
-        <p>Investigating long-term memory mechanisms for autonomous agents. Researching retrieval-based context management and multi-agent synchronization protocols for persistent collaborative systems.</p>
+        <p>LoRA adaptation of a 1.1B model on Apple silicon with 0.435% of parameters trainable, built to understand where parameter-efficient methods hold and where they break down before scaling the same questions up to MoE architectures.</p>
       </div>
     </div>
 
     <!-- Research Log -->
     <div class="research-log fade-up">
       <h3>
-        <span class="log-icon">⬡</span>
-        Recent Experiment Logs
+        <span class="log-icon">&#11041;</span>
+        Run log
       </h3>
       <div class="log-entry">
-        <div class="log-date">2026-06-02</div>
-        <div class="log-title">Selective Int8 on MoE — controlled baseline confirms layer <em>choice</em>, not layer count, drives the gain</div>
+        <div class="log-date">2026-10-31</div>
+        <div class="log-title">Fixed-layer-count control, 5 arms, 1 h 20 m &mdash; safe band beats count-matched random on 12 of 12 metrics</div>
       </div>
       <div class="log-entry">
-        <div class="log-date">2026-05-24</div>
-        <div class="log-title">Five-signal layer tolerance scoring: selective quantization sweeps all 12 fidelity metrics on two MoE architectures</div>
+        <div class="log-date">2026-10-30</div>
+        <div class="log-title">Fidelity sweep finishes on both large models &mdash; safe band wins all 12 rows on Qwen3-30B and Qwen3.5-35B</div>
       </div>
       <div class="log-entry">
-        <div class="log-date">2026-05-10</div>
-        <div class="log-title">Sparse MoE routing on Llama-3-8B — 47% FLOPs reduction with <3% quality drop</div>
+        <div class="log-date">2026-10-16</div>
+        <div class="log-title">Qwen3-30B practical table: 44.73 GB at ppl 6.6011 against bf16&rsquo;s 56.87 GB at 6.5998</div>
       </div>
       <div class="log-entry">
-        <div class="log-date">2026-04-22</div>
-        <div class="log-title">KV cache quantization experiments: INT8 maintains 99.1% retrieval accuracy</div>
-      </div>
- 
-      <div class="log-entry">
-        <div class="log-date">2026-03-18</div>
-        <div class="log-title">LoRA rank ablation study: r=8 optimal for domain adaptation on limited data</div>
+        <div class="log-date">2026-06</div>
+        <div class="log-title">Phase 1 on Apple silicon &mdash; simulated int8 across four small MoE models; largest benchmark degradation anywhere was &minus;0.66 pp</div>
       </div>
 
       <div class="research-banner">
-        <span class="banner-icon">⚗️</span>
-        <span>Currently documenting benchmark results for publication — inference optimization paper in progress.</span>
+        <span class="banner-icon">&#9879;</span>
+        <span>Full run ledger &mdash; every run, including the ones that failed or were never finished &mdash; available on request.</span>
       </div>
     </div>
   </div>
 </section>
-
-<div class="section-divider"></div>
-
-<!-- ==================== STARTUP IDEA SECTION ==================== -->
-<section id="startup">
-  <div class="container">
-    <div class="section-header fade-up">
-      <div class="section-label">Concept Research</div>
-      <h2 class="section-title">AI-Powered Skill Intelligence Platform</h2>
-    </div>
-
-    <div class="startup-content">
-      <div class="startup-visual fade-up">
-        <div class="startup-diagram">
-          <div class="diagram-node diagram-input">
-            <div class="node-icon">📄</div>
-            <span>Resumes & Profiles</span>
-          </div>
-          <div class="diagram-arrow">→</div>
-          <div class="diagram-node diagram-process">
-            <div class="node-icon">🧠</div>
-            <span>Embedding Engine</span>
-          </div>
-          <div class="diagram-arrow">→</div>
-          <div class="diagram-node diagram-process">
-            <div class="node-icon">🔗</div>
-            <span>Vector Skill Graph</span>
-          </div>
-          <div class="diagram-arrow">→</div>
-          <div class="diagram-node diagram-process">
-            <div class="node-icon">⚖️</div>
-            <span>Somatic-Weight Scoring</span>
-          </div>
-          <div class="diagram-arrow">→</div>
-          <div class="diagram-node diagram-output">
-            <div class="node-icon">🎯</div>
-            <span>Intelligent Matching</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="startup-text fade-up">
-        <h3>The Problem</h3>
-        <p>
-          Traditional ATS systems rely on keyword matching — fundamentally broken for identifying real skill relationships. A backend engineer who knows "distributed systems" should surface for "microservices architecture" roles, but current systems miss these connections entirely.
-        </p>
-
-        <h3>The Approach</h3>
-        <p>
-          Building an AI-powered platform using <strong>vector database semantic matching</strong>, <strong>embedding-based resume analysis</strong>, and <strong>contextual skill relationship mapping</strong> inspired by somatic-weight principles. The system doesn't just match keywords — it understands the <em>relationships between skills</em> and maps candidate capabilities to role requirements at a semantic level.
-        </p>
-
-        <div class="startup-features">
-          <div class="feature-item">
-            <span class="feature-icon">🔬</span>
-            <div>
-              <strong>Vector Skill Graph</strong>
-              <span>Multi-dimensional skill representation with relationship edges</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">🧬</span>
-            <div>
-              <strong>Somatic-Weight Scoring</strong>
-              <span>Contextual skill importance derived from relationship patterns</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">⚡</span>
-            <div>
-              <strong>Real-time ATS Optimization</strong>
-              <span>Intelligent candidate ranking with explainable scoring</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">🤖</span>
-            <div>
-              <strong>Bidirectional Intelligence</strong>
-              <span>Recruiter insights + candidate experience optimization</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="startup-tech">
-          <span>Vector Databases</span>
-          <span>Embedding Models</span>
-          <span>Graph Neural Networks</span>
-          <span>LangChain</span>
-          <span>FastAPI</span>
-          <span>PostgreSQL + pgvector</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
 
 <!-- ==================== MY JOURNEY SECTION ==================== -->
 <section id="journey">
@@ -727,8 +695,7 @@
           <div class="phase-body">
             <p>Everything started with curiosity. I picked up Python not because I had a plan, but because everyone said it was the language to learn. I started with basics — variables, loops, functions — then quickly fell into the rabbit hole of backend systems and APIs.</p>
             <p class="highlight">The first "hello world" API I built with Flask felt like magic. I had no idea what I was doing, but it worked.</p>
-            <p>Early experimentation with AI tooling began here — simple scripts, basic ML models, and a growing obsession with understanding how things actually work under the hood.</p>
-          </div>
+            </div>
           <div class="phase-tech">
             <span>Python</span><span>Flask</span><span>APIs</span><span>Basic ML</span>
           </div>
@@ -744,7 +711,6 @@
           <div class="phase-title">Building Production Systems</div>
           <div class="phase-body">
             <p>This is when things shifted from hobby to serious engineering. I built my first <strong>production-ready RAG pipeline</strong>, deployed workflow automation with n8n, and integrated various AI APIs into real applications.</p>
-            <p>First experiments with LangChain, ChromaDB, and local LLM inference via Ollama. I remember the excitement of running a 7B model locally for the first time — it felt like unlocking a superpower.</p>
             <p class="highlight">Key realization: The gap between "AI demos" and "AI systems" is enormous. Most tutorials stop at the demo. I wanted to build what comes after.</p>
           </div>
           <div class="phase-tech">
@@ -762,7 +728,6 @@
           <div class="phase-title">Deep Dive into AI Systems</div>
           <div class="phase-body">
             <p>I went deep. <strong>LoRA fine-tuning</strong> — understanding rank selection, placement strategies, and when parameter-efficient methods break down. <strong>Multi-agent orchestration</strong> — building systems where multiple LLM agents coordinate on complex tasks.</p>
-            <p>Optimized local inference pipelines, experimented with MLX on Apple Silicon, and began researching efficient attention mechanisms. Started documenting everything — not just the wins, but the failures and dead ends that taught me the most.</p>
             <p class="highlight">Built a multi-agent coding system from scratch. It was buggy, slow, and frustrating. I learned more from that project than from any tutorial.</p>
           </div>
           <div class="phase-tech">
@@ -780,9 +745,8 @@
           <div class="phase-title">The Pivot That Didn't Happen</div>
           <div class="phase-body">
             <p>I once tried to build a startup around an AI-powered hiring intelligence platform. The vision was compelling — semantic skill matching, contextual relationship scoring, and an ATS that actually understood candidates beyond keywords.</p>
-            <p>We prototyped the core engine — vector-based skill graphs, embedding-driven resume analysis, early experiments with graph neural networks for skill relationship mapping. The tech worked. The GTM didn't.</p>
             <p class="highlight">Sometimes the best engineering decisions are the ones you don't ship. I learned more about product-market fit, team dynamics, and when to walk away from this project than from any that succeeded.</p>
-            <p>It's shelved for now, not abandoned. The research lives on in this portfolio — as a startup concept I revisit when the timing is right.</p>
+            <p>It&rsquo;s shelved rather than abandoned, and what I learned went straight into HireFlash &mdash; the same problem, approached as a product with real unit economics instead of a pitch.</p>
           </div>
           <div class="phase-tech">
             <span>Vector DBs</span><span>Embeddings</span><span>Graph ML</span><span>ATS Systems</span><span>n8n</span>
@@ -798,7 +762,7 @@
         <div class="phase-content">
           <div class="phase-title">Research & Infrastructure at the Edge</div>
           <div class="phase-body">
-            <p>Current focus: pushing AI systems to their limits. <strong>Sparse expert routing</strong> for 47% FLOPs reduction. <strong>KV cache quantization</strong> maintaining 99.1% accuracy at INT8. <strong>MoE architectures</strong> designed for edge deployment.</p>
+            <p>Current focus: selective int8 quantization for <strong>Mixture-of-Experts</strong> models, running on an H100 at VIT&rsquo;s DST-FIST server. Seven MoE architectures profiled layer by layer, two taken all the way through real int8 and a fidelity evaluation against the unquantized model.</p>
             <p>I'm building infrastructure that bridges the gap between research papers and production systems — taking experimental architectures and making them actually work at scale.</p>
             <p class="highlight">The goal isn't just to use AI. It's to understand it deeply enough to build what doesn't exist yet.</p>
           </div>
@@ -864,24 +828,6 @@
           <span class="tech-item-el">Semantic Search</span>
           <span class="tech-item-el">Vector DBs</span>
         </div>
-        <div class="proficiency-bars">
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>PyTorch</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="82"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>LLM Fine-Tuning</span><span>Intermediate</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="72"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>RAG Architectures</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="80"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>Agent Systems</span><span>Intermediate</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="68"></div></div>
-          </div>
-        </div>
       </div>
 
       <div class="tech-category">
@@ -902,20 +848,6 @@
           <span class="tech-item-el">Linux</span>
           <span class="tech-item-el">CI/CD</span>
         </div>
-        <div class="proficiency-bars">
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>Python</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="88"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>FastAPI / APIs</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="78"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>Docker / DevOps</span><span>Intermediate</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="70"></div></div>
-          </div>
-        </div>
       </div>
 
       <div class="tech-category">
@@ -932,20 +864,6 @@
           <span class="tech-item-el">Framer Motion</span>
           <span class="tech-item-el">Three.js</span>
           <span class="tech-item-el">HTML5 / CSS3</span>
-        </div>
-        <div class="proficiency-bars">
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>Next.js / React</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="80"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>TypeScript</span><span>Advanced</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="75"></div></div>
-          </div>
-          <div class="prof-bar-item">
-            <div class="prof-bar-label"><span>UI/UX Design</span><span>Intermediate</span></div>
-            <div class="prof-bar-track"><div class="prof-bar-fill" data-width="70"></div></div>
-          </div>
         </div>
       </div>
 
