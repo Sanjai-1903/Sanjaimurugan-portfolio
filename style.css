@@ -631,24 +631,30 @@ section { position: relative; }
 }
 
 /* PDF Certificate Card */
+/* Matches img.cert-image: same box, same solid border, same background.
+   It used to carry a dashed border and a tinted fill, which read as an empty
+   placeholder slot next to the real certificates rather than a credential. */
 .cert-pdf {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 8px; padding: 20px 16px;
-  width: 100%; height: 180px;   /* same as img.cert-image */
+  gap: 10px; padding: 20px 16px;
+  width: 100%; height: 180px;
   text-decoration: none;
-  background: rgba(var(--accent-cyan-rgb), 0.04);
+  background: var(--bg-primary);
   border-radius: var(--radius-md);
-  border: 1px dashed rgba(var(--accent-cyan-rgb), 0.25);
-  transition: all 0.3s;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s, background 0.3s;
   color: inherit;
 }
 .cert-pdf:hover {
-  background: rgba(var(--accent-cyan-rgb), 0.08);
+  background: var(--bg-card-hover);
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 20px var(--accent-glow-cyan);
 }
-.cert-pdf-icon { font-size: 2rem; }
+.cert-pdf-icon {
+  display: block;
+  color: var(--accent-cyan);
+}
+.cert-pdf-icon svg { width: 30px; height: 30px; display: block; }
 .cert-pdf-name {
   font-family: var(--font-mono);
   font-size: 0.8rem; color: var(--accent-cyan);
