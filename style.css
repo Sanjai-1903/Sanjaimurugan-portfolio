@@ -422,13 +422,16 @@ section { position: relative; }
 
 /* Hero Photo */
 .hero-photo-container {
+  --photo-size: 280px;
   position: relative;
-  width: 280px; height: 280px;
+  width: var(--photo-size);
+  /* height is deliberately auto: .photo-label sits inside this container and
+     must be counted, or it overflows onto the element below. */
   margin: 0 auto 32px;
 }
 .photo-frame {
   position: relative;
-  width: 100%; height: 100%;
+  width: var(--photo-size); height: var(--photo-size);
   border-radius: 50%;
   /* No overflow:hidden here — it used to clip .photo-ring (inset:-8px/-16px)
      away entirely. The photo itself is clipped by its own border-radius. */
@@ -458,7 +461,8 @@ section { position: relative; }
   filter: blur(8px);
   pointer-events: none;
 }
-.photo-frame > :is(picture, .photo-ring) { position: relative; z-index: 1; }
+.photo-frame > picture { position: relative; z-index: 1; }
+.photo-frame > .photo-ring { z-index: 1; }   /* stays absolute; see .photo-ring */
 .photo-ring {
   position: absolute; inset: -8px;
   pointer-events: none;
@@ -2126,8 +2130,7 @@ html:not(.js) .journey-timeline.js-reveal .journey-phase { opacity: 1; transform
     padding: 40px 0;
   }
   .hero-photo-container {
-    width: 200px;
-    height: 200px;
+    --photo-size: 200px;
     margin-bottom: 24px;
   }
   .photo-label {
@@ -2264,8 +2267,7 @@ html:not(.js) .journey-timeline.js-reveal .journey-phase { opacity: 1; transform
     padding-top: 40px;
   }
   .hero-photo-container {
-    width: 160px;
-    height: 160px;
+    --photo-size: 160px;
   }
   .hero-headline {
     font-size: 1.5rem;
@@ -2335,8 +2337,7 @@ html:not(.js) .journey-timeline.js-reveal .journey-phase { opacity: 1; transform
 /* Extra small devices */
 @media (max-width: 360px) {
   .hero-photo-container {
-    width: 140px;
-    height: 140px;
+    --photo-size: 140px;
   }
   .hero-headline {
     font-size: 1.3rem;
