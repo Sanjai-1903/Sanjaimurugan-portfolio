@@ -1,42 +1,42 @@
 /* ========== RESET & BASE ========== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  /* ---- Palette: Clay & Sand (option N) ----
+  /* ---- Palette: Espresso (option L) ----
      Every colour below is a token. The --*-rgb twins exist so rgba() can vary
      alpha against the same hue: rgba(var(--accent-cyan-rgb), 0.2).
      Swapping palettes means editing this block and nothing else. */
 
-  --bg-primary: #0d0a09;
-  --bg-secondary: #141010;
-  --bg-card: #191312;
-  --bg-card-hover: #211917;
-  --border-color: #2e2321;
-  --border-glow: #3d2f2a;
+  --bg-primary: #100c09;
+  --bg-secondary: #16110d;
+  --bg-card: #1a1410;
+  --bg-card-hover: #221a15;
+  --border-color: #2d2319;
+  --border-glow: #3e3024;
 
-  --text-primary: #ece2d8;
-  --text-secondary: #998a7e;
-  --text-muted: #938577;
+  --text-primary: #ede4d8;
+  --text-secondary: #a3927e;
+  --text-muted: #978876;
 
   /* Accent names are kept from the original build so every existing rule
      keeps working; only the values are new.
-       cyan   -> terracotta (primary)
-       purple -> sand       (secondary)
-       blue   -> deep clay  (tertiary / watermarks)              */
-  --accent-cyan: #c96f4a;
-  --accent-purple: #d9c3a0;
-  --accent-blue: #a8562f;
-  --accent-magenta: #e0a06d;
-  --accent-amber: #d9a05b;
-  --accent-green: #8ba888;
+       cyan   -> caramel (primary)
+       purple -> sage    (secondary — the cool anchor this palette needs)
+       blue   -> bronze  (tertiary / watermarks)                  */
+  --accent-cyan: #d4a06a;
+  --accent-purple: #7fae9b;
+  --accent-blue: #b07d45;
+  --accent-magenta: #d98e73;
+  --accent-amber: #e0b062;
+  --accent-green: #7fc9a0;
   --accent-red: #d4604f;
 
-  --bg-primary-rgb: 13, 10, 9;
-  --bg-card-rgb: 25, 19, 18;
-  --accent-cyan-rgb: 201, 111, 74;
-  --accent-purple-rgb: 217, 195, 160;
-  --accent-blue-rgb: 168, 86, 47;
-  --accent-magenta-rgb: 224, 160, 109;
-  --accent-amber-rgb: 217, 160, 91;
+  --bg-primary-rgb: 16, 12, 9;
+  --bg-card-rgb: 26, 20, 16;
+  --accent-cyan-rgb: 212, 160, 106;
+  --accent-purple-rgb: 127, 174, 155;
+  --accent-blue-rgb: 176, 125, 69;
+  --accent-magenta-rgb: 217, 142, 115;
+  --accent-amber-rgb: 224, 176, 98;
 
   --accent-glow-blue: rgba(var(--accent-blue-rgb), 0.3);
   --accent-glow-cyan: rgba(var(--accent-cyan-rgb), 0.25);
