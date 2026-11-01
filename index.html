@@ -4,9 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sanjai Murugan — AI Systems Engineer & Researcher</title>
+<meta name="description" content="Sanjai Murugan — AI systems engineer and researcher building local-first AI architectures, multi-agent orchestration, RAG pipelines and efficient inference systems.">
+<meta name="theme-color" content="#0a0a0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="img/avatar-560.webp" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
+<script>
+  /* Scroll-reveal hides content until JS reveals it again, so only arm it when
+     JS is actually running — and disarm it if script.js never gets to start
+     (blocked, failed request, parse error), rather than leaving a blank page. */
+  document.documentElement.classList.add('js');
+  setTimeout(function () {
+    if (!window.__portfolioReady) document.documentElement.classList.remove('js');
+  }, 3000);
+</script>
 </head>
 <body>
 
@@ -20,7 +34,10 @@
 <!-- Loading Screen -->
 <div id="loader">
   <div class="loader-avatar">
-    <img src="photo.png" alt="Sanjai Murugan" id="loader-avatar-img">
+    <picture>
+      <source srcset="img/avatar-240.webp" type="image/webp">
+      <img src="img/avatar-240.jpg" alt="Sanjai Murugan" id="loader-avatar-img" width="240" height="240" decoding="async" fetchpriority="high">
+    </picture>
     <div class="avatar-ring"></div>
     <div class="avatar-ring ring-2"></div>
     <div class="avatar-ring ring-3"></div>
@@ -112,7 +129,10 @@
       <!-- Hero Photo — above headline -->
       <div class="hero-photo-container">
         <div class="photo-frame">
-          <img src="photo.png" alt="Sanjai Murugan" class="hero-photo">
+          <picture>
+            <source srcset="img/avatar-320.webp 320w, img/avatar-560.webp 560w" sizes="(max-width: 480px) 160px, (max-width: 768px) 200px, 280px" type="image/webp">
+            <img src="img/avatar-560.jpg" srcset="img/avatar-320.jpg 320w, img/avatar-560.jpg 560w" sizes="(max-width: 480px) 160px, (max-width: 768px) 200px, 280px" alt="Sanjai Murugan" class="hero-photo" width="560" height="560" decoding="async" fetchpriority="high">
+          </picture>
           <div class="photo-glow"></div>
           <div class="photo-ring"></div>
           <div class="photo-ring ring-2"></div>
@@ -202,12 +222,13 @@
         <div class="stat-number" id="metric-certs" data-target="6">0</div>
         <div class="stat-label">Certifications</div>
       </div>
-      </div>
-  </div>
 
-  <div class="scroll-indicator">
-    <span>Scroll to explore</span>
-    <div class="scroll-arrow"></div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
   </div>
 </section>
 
@@ -224,7 +245,10 @@
     <div class="about-content">
       <div class="about-image fade-up">
         <div class="about-photo-wrapper">
-          <img src="photo2m.png" alt="Sanjai Murugan" class="about-photo">
+          <picture>
+            <source srcset="img/about-320.webp 320w, img/about-520.webp 520w" sizes="(max-width: 480px) 150px, (max-width: 768px) 180px, 260px" type="image/webp">
+            <img src="img/about-520.png" srcset="img/about-320.png 320w, img/about-520.png 520w" sizes="(max-width: 480px) 150px, (max-width: 768px) 180px, 260px" alt="Sanjai Murugan" class="about-photo" width="520" height="520" loading="lazy" decoding="async">
+          </picture>
           <div class="about-photo-border"></div>
         </div>
         <div class="about-quick-info">
@@ -404,15 +428,14 @@
           <p class="project-tagline-text">"AI-powered skill extraction and semantic matching for hiring workflows."</p>
           <p class="project-desc">
             A semantic ATS (Applicant Tracking System) software developed using Agentic AI workflows powered through n8n automation. The platform is designed to intelligently analyze resumes, understand candidate skills semantically, match applicants with job requirements, and automate hiring workflows in real time. By leveraging AI-driven decision making and contextual understanding, the system streamlines recruitment operations and improves candidate-job matching accuracy.
-            
-            <ul class="project-features">
-              <li>Semantic resume parsing and intelligent candidate-job matching</li>
-              <li>Agentic AI workflow orchestration using n8n automation</li>
-              <li>Automated recruitment pipeline and candidate screening</li>
-              <li>Context-aware skill evaluation using vector embeddings</li>
-              <li>AI-assisted hiring insights and workflow optimization</li>
-            </ul>
           </p>
+          <ul class="project-features">
+            <li>Semantic resume parsing and intelligent candidate-job matching</li>
+            <li>Agentic AI workflow orchestration using n8n automation</li>
+            <li>Automated recruitment pipeline and candidate screening</li>
+            <li>Context-aware skill evaluation using vector embeddings</li>
+            <li>AI-assisted hiring insights and workflow optimization</li>
+          </ul>
           <div class="project-tech">
             <span>n8n</span><span>Agentic AI</span>
           </div>
@@ -439,6 +462,65 @@
         Exploring experimental AI system architectures, inference optimization techniques, and efficient model specialization beyond standard application development.
       </p>
     </div>
+
+    <!-- Featured study -->
+    <article class="research-feature fade-up">
+      <div class="research-feature-head">
+        <span class="research-feature-badge">Featured Study</span>
+        <div class="research-feature-meta">
+          Independent research · VIT Chennai · NVIDIA H100 (DST-FIST research server)
+        </div>
+      </div>
+
+      <h3 class="research-feature-title">Selective Int8 Quantization for Mixture-of-Experts LLMs</h3>
+
+      <div class="research-tags">
+        <span class="research-tag">Mixture-of-Experts</span>
+        <span class="research-tag">Post-Training Quantization</span>
+        <span class="research-tag">Fidelity Evaluation</span>
+        <span class="research-tag">Expert Routing</span>
+      </div>
+
+      <div class="research-feature-body">
+        <p>
+          Mixture-of-Experts models activate few parameters per token but must keep every expert in memory.
+          Standard post-training quantization treats all layers as equally important. I built a pipeline that
+          scores each layer's quantization tolerance using five signals — KL divergence, top-1 disagreement,
+          choice-flip rate, log-likelihood deviation and perplexity delta — and quantizes only the tolerant
+          <em>safe band</em>.
+        </p>
+        <p>
+          Because multiple-choice benchmarks showed no difference between selective and full quantization, I
+          designed a fidelity evaluation instead, treating the unquantized model as ground truth: KL divergence
+          over 19,200 token positions, expert-routing overlap, and tokens-until-divergence in free-running
+          generation. Selective quantization won all 12 metrics on two different MoE architectures.
+        </p>
+        <p>
+          To rule out the obvious objection — that quantizing fewer layers trivially drifts less — I ran a control
+          holding the layer count fixed and varying only <em>which</em> layers were chosen, across random and
+          inverted-ranking baselines. The selected band still won every metric.
+        </p>
+      </div>
+
+      <div class="research-feature-stats">
+        <div class="rf-stat">
+          <span class="rf-stat-value">12 / 12</span>
+          <span class="rf-stat-label">Fidelity metrics won</span>
+        </div>
+        <div class="rf-stat">
+          <span class="rf-stat-value">+6.52</span>
+          <span class="rf-stat-label">Expert-routing match (95% CI 6.31–6.73)</span>
+        </div>
+        <div class="rf-stat">
+          <span class="rf-stat-value">150 / 150</span>
+          <span class="rf-stat-label">Test prompts won</span>
+        </div>
+        <div class="rf-stat">
+          <span class="rf-stat-value">19,200</span>
+          <span class="rf-stat-label">Token positions evaluated</span>
+        </div>
+      </div>
+    </article>
 
     <div class="research-grid">
       <div class="research-card fade-up">
@@ -492,6 +574,14 @@
         <span class="log-icon">⬡</span>
         Recent Experiment Logs
       </h3>
+      <div class="log-entry">
+        <div class="log-date">2026-06-02</div>
+        <div class="log-title">Selective Int8 on MoE — controlled baseline confirms layer <em>choice</em>, not layer count, drives the gain</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-date">2026-05-24</div>
+        <div class="log-title">Five-signal layer tolerance scoring: selective quantization sweeps all 12 fidelity metrics on two MoE architectures</div>
+      </div>
       <div class="log-entry">
         <div class="log-date">2026-05-10</div>
         <div class="log-title">Sparse MoE routing on Llama-3-8B — 47% FLOPs reduction with <3% quality drop</div>
@@ -894,63 +984,87 @@
 
     <div class="certs-carousel-wrapper fade-up">
       <div class="certs-carousel-track" id="certCarouselTrack">
-        <!-- Certificate Slides (Actual Certificate Images) -->
+        <!-- One set of slides, then an exact duplicate: the -50% keyframe loops seamlessly. -->
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <img src="certificates/1741420132358.jpeg" alt="Deep Learning Specialization Certificate" class="cert-image">
+            <picture>
+              <source srcset="img/cert-deep-learning.webp" type="image/webp">
+              <img src="img/cert-deep-learning.jpg" alt="Deep Learning Specialization Certificate" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <img src="certificates/1745054695140.jpeg" alt="AWS Certified Machine Learning Specialty" class="cert-image">
+            <picture>
+              <source srcset="img/cert-aws-ml.webp" type="image/webp">
+              <img src="img/cert-aws-ml.jpg" alt="AWS Certified Machine Learning Specialty" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <img src="certificates/1766475953294.jpeg" alt="TensorFlow Developer Certificate" class="cert-image">
+            <picture>
+              <source srcset="img/cert-tensorflow.webp" type="image/webp">
+              <img src="img/cert-tensorflow.jpg" alt="TensorFlow Developer Certificate" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <img src="certificates/HCL GUVI Certification - a73p7LH62vuV1Z2467-2.png" alt="HCL GUVI Certification" class="cert-image">
+            <picture>
+              <source srcset="img/cert-hcl-guvi.webp" type="image/webp">
+              <img src="img/cert-hcl-guvi.jpg" alt="HCL GUVI Certification" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
         <div class="cert-slide">
           <div class="cert-card-inner">
-            <a href="certificates/M SANJAI-AGRHINOVA.pdf" target="_blank" class="cert-image cert-pdf">
+            <a href="certificates/M SANJAI-AGRHINOVA.pdf" target="_blank" rel="noopener" class="cert-image cert-pdf">
               <span class="cert-pdf-icon">📄</span>
               <span class="cert-pdf-name">M SANJAI — AGRHINOVA</span>
               <span class="cert-pdf-hint">Click to view PDF</span>
             </a>
           </div>
         </div>
-
-        <!-- Add a couple more certificate slides for better carousel effect -->
-        <div class="cert-slide">
+        <div class="cert-slide" aria-hidden="true">
           <div class="cert-card-inner">
-            <img src="certificates/1741420132358.jpeg" alt="Deep Learning Specialization Certificate" class="cert-image">
+            <picture>
+              <source srcset="img/cert-deep-learning.webp" type="image/webp">
+              <img src="img/cert-deep-learning.jpg" alt="" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
-        <div class="cert-slide">
+        <div class="cert-slide" aria-hidden="true">
           <div class="cert-card-inner">
-            <img src="certificates/1745054695140.jpeg" alt="AWS Certified Machine Learning Specialty" class="cert-image">
+            <picture>
+              <source srcset="img/cert-aws-ml.webp" type="image/webp">
+              <img src="img/cert-aws-ml.jpg" alt="" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
-        <div class="cert-slide">
+        <div class="cert-slide" aria-hidden="true">
           <div class="cert-card-inner">
-            <img src="certificates/1766475953294.jpeg" alt="TensorFlow Developer Certificate" class="cert-image">
+            <picture>
+              <source srcset="img/cert-tensorflow.webp" type="image/webp">
+              <img src="img/cert-tensorflow.jpg" alt="" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
-
-        <div class="cert-slide">
+        <div class="cert-slide" aria-hidden="true">
           <div class="cert-card-inner">
-            <img src="certificates/HCL GUVI Certification - a73p7LH62vuV1Z2467-2.png" alt="HCL GUVI Certification" class="cert-image">
+            <picture>
+              <source srcset="img/cert-hcl-guvi.webp" type="image/webp">
+              <img src="img/cert-hcl-guvi.jpg" alt="" class="cert-image" width="900" height="636" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <div class="cert-slide" aria-hidden="true">
+          <div class="cert-card-inner">
+            <a href="certificates/M SANJAI-AGRHINOVA.pdf" target="_blank" rel="noopener" class="cert-image cert-pdf" tabindex="-1">
+              <span class="cert-pdf-icon">📄</span>
+              <span class="cert-pdf-name">M SANJAI — AGRHINOVA</span>
+              <span class="cert-pdf-hint">Click to view PDF</span>
+            </a>
           </div>
         </div>
       </div>
@@ -992,7 +1106,7 @@
 </section>
 
 <!-- ==================== JAVASCRIPT ==================== -->
-<script src="script.js"></script>
+<script src="script.js?v=4" defer></script>
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 
 </body>

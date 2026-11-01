@@ -174,6 +174,9 @@ nav.scrolled { border-bottom-color: var(--border-color); background: rgba(10,10,
 }
 .nav-links a:hover { color: var(--text-primary); text-shadow: 0 0 20px var(--accent-glow-cyan); }
 .nav-links a:hover::after { width: 100%; }
+/* Active section — was set as inline styles from the scroll handler. */
+.nav-links a.is-active { color: var(--accent-cyan); text-shadow: 0 0 20px var(--accent-glow-cyan); }
+.nav-links a.is-active::after { width: 100%; }
 .nav-cta {
   padding: 8px 20px; border-radius: 100px;
   font-size: 0.8rem; font-weight: 600;
@@ -391,14 +394,25 @@ section { position: relative; }
   position: relative;
   width: 100%; height: 100%;
   border-radius: 50%;
-  overflow: hidden;
+  /* No overflow:hidden here — it used to clip .photo-ring (inset:-8px/-16px)
+     away entirely. The photo itself is clipped by its own border-radius. */
   border: 3px solid var(--border-glow);
   box-shadow: 0 0 40px rgba(6,182,212,0.15), 0 0 80px rgba(6,182,212,0.05);
 }
+/* <picture> is inline by default and would collapse the sized <img> inside. */
+.photo-frame picture,
+.about-photo-wrapper picture,
+.loader-avatar picture {
+  display: block;
+  width: 100%; height: 100%;
+}
+.cert-card-inner picture { display: block; }
 .hero-photo {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center 30%;
   border-radius: 50%;
+  background: var(--bg-card);
 }
 .photo-glow {
   position: absolute; inset: -4px;
@@ -406,10 +420,12 @@ section { position: relative; }
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
   opacity: 0.3;
   filter: blur(8px);
-  z-index: -1;
+  pointer-events: none;
 }
+.photo-frame > :is(picture, .photo-ring) { position: relative; z-index: 1; }
 .photo-ring {
   position: absolute; inset: -8px;
+  pointer-events: none;
   border-radius: 50%;
   border: 1px solid rgba(6,182,212,0.15);
   animation: ringRotate 8s linear infinite;
@@ -564,13 +580,16 @@ section { position: relative; }
   text-transform: uppercase; letter-spacing: 0.1em;
 }
 .scroll-indicator {
-  position: absolute; bottom: 32px; left: 50%;
-  transform: translateX(-50%);
+  /* Was position:absolute;bottom:32px, which landed on top of .hero-stats
+     whenever the hero grew past the viewport (it always does). */
   display: flex; flex-direction: column; align-items: center; gap: 8px;
+  margin: 48px auto 0;
   color: var(--text-muted); font-size: 0.8rem;
   pointer-events: none;
+  position: relative;
   z-index: 2;
 }
+@media (max-width: 768px) { .scroll-indicator { display: none; } }
 .scroll-arrow {
   width: 18px; height: 18px;
   border-right: 2px solid var(--text-muted);
@@ -981,10 +1000,14 @@ section { position: relative; }
   font-size: 2.5rem; font-weight: 900;
   color: rgba(59,130,246,0.1);
   position: absolute; top: 16px; right: 20px;
+  line-height: 1;
+  pointer-events: none;
 }
 .research-card h3 {
   font-size: 1.15rem; font-weight: 700;
   margin-bottom: 8px;
+  /* keep the wrapped title clear of the big watermark number */
+  padding-right: 64px;
 }
 .research-card h3 span {
   background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
@@ -1002,6 +1025,128 @@ section { position: relative; }
 .research-card p {
   font-size: 0.88rem; color: var(--text-secondary);
   line-height: 1.8;
+}
+
+/* ========== FEATURED RESEARCH STUDY ========== */
+.research-feature {
+  position: relative;
+  margin-bottom: 32px;
+  padding: 36px 40px;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05)),
+    var(--bg-card);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  overflow: hidden;
+}
+
+.research-feature::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent);
+}
+
+.research-feature-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.research-feature-badge {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.research-feature-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.research-feature-title {
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.research-feature .research-tags { margin-bottom: 20px; }
+
+.research-feature-body p {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.research-feature-body p:last-child { margin-bottom: 0; }
+.research-feature-body em { color: var(--accent-cyan); font-style: normal; font-weight: 600; }
+
+.research-feature-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.rf-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rf-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1.1;
+}
+
+.rf-stat-label {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 768px) {
+  .research-feature { padding: 26px 22px; }
+  .research-feature-body p { font-size: 0.9rem; line-height: 1.8; }
+  .research-feature-stats { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+  .rf-stat-value { font-size: 1.15rem; }
+}
+
+@media (max-width: 380px) {
+  .research-feature-stats { grid-template-columns: 1fr; }
+}
+
+.log-entry .log-title em {
+  color: var(--text-primary);
+  font-style: normal;
+  font-weight: 700;
 }
 
 /* Research Log */
@@ -1061,382 +1206,18 @@ section { position: relative; }
 .benchmark-table tr:hover td { background: rgba(255,255,255,0.02); }
 .bench-val { color: var(--accent-cyan); font-family: var(--font-mono); font-weight: 600; }
 
-/* ========== JOURNEY - CINEMATIC TIMELINE ========== */
-#journey {
-  padding: 180px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.journey-timeline {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-/* Main timeline line */
-.timeline-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom,
-    var(--accent-cyan) 0%,
-    var(--accent-cyan) 40%,
-    var(--accent-purple) 100%
-  );
-  transform: translateX(-50%);
-  box-shadow:
-    0 0 20px rgba(6, 182, 212, 0.4),
-    0 0 40px rgba(6, 182, 212, 0.2),
-    inset 0 0 20px rgba(6, 182, 212, 0.2);
-  opacity: 0.3;
-  transition: opacity 0.6s ease;
-}
-
-.timeline-line.active {
-  opacity: 1;
-}
-
-.timeline-line::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: var(--scroll-progress, 0%);
-  background: linear-gradient(to bottom,
-    rgba(6, 182, 212, 0.8),
-    rgba(139, 92, 246, 0.6)
-  );
-  transition: height 0.3s ease-out;
-}
-
-/* Journey phases */
-.journey-phase {
-  position: relative;
-  margin-bottom: 160px;
-  opacity: 0.7;
-  transform: translateY(30px) translateX(-20px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, opacity;
-}
-
-.journey-phase.active {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-}
-
-.journey-phase.prev {
-  opacity: 0.4;
-  transform: translateY(20px) translateX(-10px);
-}
-
-/* Year marker */
-.year-marker {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  z-index: 10;
-}
-
-.year-label {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .year-label {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.year-node {
-  width: 24px;
-  height: 24px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
-  border: 4px solid var(--bg-primary);
-  box-shadow:
-    0 0 30px rgba(6, 182, 212, 0.6),
-    0 0 60px rgba(6, 182, 212, 0.3);
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.journey-phase.active .year-node {
-  opacity: 1;
-  transform: scale(1.1);
-  animation: nodePulse 2s infinite;
-}
-
-.journey-phase.active .year-node::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%);
-  animation: nodeRipple 2s infinite;
-}
-
+/* Shared timeline keyframes (the timeline rules themselves live in
+   "ENHANCED JOURNEY TIMELINE" further down). */
 @keyframes nodePulse {
-  0%, 100% {
-    box-shadow:
-      0 0 30px rgba(6, 182, 212, 0.6),
-      0 0 60px rgba(6, 182, 212, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 40px rgba(6, 182, 212, 0.8),
-      0 0 80px rgba(6, 182, 212, 0.5);
-  }
+  0%, 100% { box-shadow: 0 0 24px rgba(6, 182, 212, 0.55), 0 0 48px rgba(6, 182, 212, 0.25); }
+  50%      { box-shadow: 0 0 34px rgba(6, 182, 212, 0.75), 0 0 70px rgba(6, 182, 212, 0.4); }
 }
 
 @keyframes nodeRipple {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
+  0%   { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2);   opacity: 0; }
 }
 
-/* Content card */
-.phase-content {
-  background: rgba(20, 20, 31, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 40px 50px;
-  position: relative;
-  opacity: 0;
-  transform: translateY(40px) translateX(-20px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
-
-.journey-phase.active .phase-content {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-  border-color: rgba(6, 182, 212, 0.3);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(6, 182, 212, 0.1);
-}
-
-.phase-content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent,
-    var(--accent-cyan),
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.journey-phase.active .phase-content::before {
-  opacity: 1;
-}
-
-/* Title */
-.phase-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .phase-title {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
-
-/* Body content */
-.phase-body {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-
-.phase-body p {
-  margin-bottom: 16px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .phase-body p:nth-child(1) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.2s;
-}
-
-.journey-phase.active .phase-body p:nth-child(2) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.3s;
-}
-
-.journey-phase.active .phase-body p:nth-child(3) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.4s;
-}
-
-.phase-highlight {
-  color: var(--accent-cyan);
-  font-weight: 600;
-}
-
-/* Tech tags */
-.phase-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .phase-tech {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.5s;
-}
-
-.phase-tech span {
-  padding: 8px 20px;
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 24px;
-  font-size: 0.85rem;
-  color: var(--accent-cyan);
-  font-weight: 500;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.phase-tech span::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(6, 182, 212, 0.1);
-  transition: left 0.3s;
-}
-
-.journey-phase.active .phase-tech span:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: var(--accent-cyan);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.2);
-}
-
-.journey-phase.active .phase-tech span:hover::before {
-  left: 0;
-}
-
-/* Parallax effect */
-.journey-phase {
-  transform-style: preserve-3d;
-}
-
-.journey-phase.active {
-  transform: translateZ(0) translateY(0) translateX(0);
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .journey-timeline {
-    padding: 0 20px;
-  }
-
-  .phase-content {
-    padding: 32px 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  #journey {
-    padding: 120px 0;
-  }
-
-  .journey-timeline {
-    padding: 0 30px;
-  }
-
-  .timeline-line {
-    left: 30px;
-    transform: none;
-  }
-
-  .year-marker {
-    left: 30px;
-    transform: none;
-  }
-
-  .phase-content {
-    padding: 24px 30px;
-    margin-left: 60px;
-  }
-
-  .phase-title {
-    font-size: 1.3rem;
-  }
-
-  .phase-body {
-    font-size: 0.95rem;
-  }
-
-  .journey-phase {
-    margin-bottom: 120px;
-  }
-}
-
-@media (max-width: 480px) {
-  .phase-content {
-    padding: 20px 24px;
-    margin-left: 50px;
-  }
-
-  .phase-title {
-    font-size: 1.1rem;
-  }
-
-  .phase-body {
-    font-size: 0.9rem;
-    line-height: 1.7;
-  }
-
-  .journey-phase {
-    margin-bottom: 80px;
-  }
-}
 .highlight {
   color: var(--accent-cyan);
   font-weight: 600;
@@ -1590,18 +1371,22 @@ section { position: relative; }
   background: linear-gradient(to left, var(--bg-primary) 60%, transparent);
 }
 .certs-carousel-track {
+  --cert-gap: 24px;
   display: flex;
-  gap: 24px;
+  gap: var(--cert-gap);
   width: max-content;
-  animation: carouselScroll 30s linear infinite;
+  animation: carouselScroll 36s linear infinite;
   will-change: transform;
 }
 #certifications:hover .certs-carousel-track {
   animation-play-state: paused;
 }
+/* The track holds one set of slides plus an exact duplicate. A plain -50%
+   lands half a gap short of the duplicate's first slide and the strip visibly
+   jumps once per cycle, so add that half gap back. */
 @keyframes carouselScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - var(--cert-gap) / 2)); }
 }
 .cert-slide {
   flex-shrink: 0;
@@ -1625,7 +1410,7 @@ section { position: relative; }
 }
 .cert-image {
   width: 100%;
-  height: auto;
+  height: 180px;
   object-fit: contain;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
@@ -2000,13 +1785,19 @@ section { position: relative; }
 }
 
 /* ========== ANIMATIONS ========== */
-.fade-up {
+/* Scoped to html.js: with JS off (or script.js never starting — see the
+   inline head script) these stay at their natural opacity instead of leaving
+   the page blank. */
+.js .fade-up {
   opacity: 0; transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-in { opacity: 0; transition: opacity 0.6s ease; }
-.fade-in.visible { opacity: 1; }
+.js .fade-up.visible { opacity: 1; transform: translateY(0); }
+.js .fade-in { opacity: 0; transition: opacity 0.6s ease; }
+.js .fade-in.visible { opacity: 1; }
+
+/* Same guard for the timeline reveal. */
+html:not(.js) .journey-timeline.js-reveal .journey-phase { opacity: 1; transform: none; }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
@@ -2376,10 +2167,20 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 
-/* ========== ENHANCED JOURNEY TIMELINE ========== */
+/* ========== JOURNEY TIMELINE ==========
+   Layout rules:
+   - The rail, the year marker and the card each own their own column, so the
+     marker can never sit on top of the card (the old build absolutely
+     positioned the marker at left:50% over a full-width card).
+   - Cards are VISIBLE by default. The reveal animation is opt-in: script.js
+     adds .js-reveal to the timeline only when IntersectionObserver exists, so
+     a JS error or an old browser leaves the text readable instead of blank.
+   - Everything expensive (backdrop blur, layered shadows, infinite glows) is
+     switched off under html.low-power — see the block at the end.
+*/
 
 #journey {
-  padding: 200px 0;
+  padding: 160px 0;
   position: relative;
   overflow: hidden;
   background:
@@ -2389,35 +2190,21 @@ section[id] { scroll-margin-top: 80px; }
 
 .journey-timeline {
   position: relative;
-  max-width: 1200px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 0 60px;
 }
 
+/* ---- The rail ---- */
 .timeline-line {
   position: absolute;
-  left: 50%;
+  left: 17px;            /* centre of the 34px marker column */
   top: 0;
   bottom: 0;
-  width: 6px;
-  background: linear-gradient(to bottom,
-    var(--accent-cyan) 0%,
-    var(--accent-cyan) 50%,
-    var(--accent-purple) 100%
-  );
+  width: 3px;
   transform: translateX(-50%);
-  border-radius: 3px;
-  box-shadow:
-    0 0 40px rgba(6, 182, 212, 0.4),
-    0 0 80px rgba(6, 182, 212, 0.2),
-    inset 0 0 40px rgba(6, 182, 212, 0.3);
-  opacity: 0.3;
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.timeline-line.active {
-  opacity: 1;
-  animation: linePulse 3s ease-in-out infinite;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
 }
 
 .timeline-progress {
@@ -2426,285 +2213,293 @@ section[id] { scroll-margin-top: 80px; }
   left: 0;
   width: 100%;
   height: var(--progress, 0%);
-  background: linear-gradient(to bottom,
-    rgba(6, 182, 212, 0.9),
-    rgba(139, 92, 246, 0.8)
-  );
-  border-radius: 3px;
-  transition: height 0.2s ease-out;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple));
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.5);
+  /* height is written from a single rAF-throttled handler; no transition so it
+     tracks the finger exactly and never queues work on a slow device. */
 }
 
-@keyframes linePulse {
-  0%, 100% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.4), 0 0 80px rgba(6, 182, 212, 0.2); }
-  50% { box-shadow: 0 0 60px rgba(6, 182, 212, 0.6), 0 0 120px rgba(6, 182, 212, 0.4); }
-}
-
-.year-marker {
+/* Soft comet at the head of the fill — one small element, no layout cost. */
+.timeline-progress::after {
+  content: '';
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  z-index: 10;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.85) 0%, transparent 70%);
+}
+
+/* ---- Phase layout ----
+   One rail on the left at every width. The phases carry a lot of copy, so a
+   centre-alternating layout would halve the measure and leave a tall empty
+   column opposite every card. A single rail keeps full-width cards, one set
+   of rules instead of two, and far less for a weak device to lay out.
+
+   display:contents promotes the year label and the dot out of .year-marker so
+   the dot can sit on the rail while the year reads as the card's header.
+   The @supports fallback keeps everything legible without it. */
+.journey-phase {
+  position: relative;
+  margin-bottom: 72px;
+}
+
+.journey-phase:last-child { margin-bottom: 0; }
+
+@supports (display: contents) {
+  .journey-phase {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 26px;
+    row-gap: 18px;
+    align-items: start;
+  }
+
+  .year-marker { display: contents; }
+
+  .year-node  { grid-column: 1; grid-row: 1; justify-self: center; align-self: center; }
+  .year-label { grid-column: 2; grid-row: 1; justify-self: start;  align-self: center; }
+  .phase-content { grid-column: 2; grid-row: 2; }
+}
+
+/* Fallback: no display:contents — lay the marker out as a row above the card. */
+@supports not (display: contents) {
+  .journey-phase { padding-left: 60px; }
+  .year-marker {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 16px -60px;
+  }
+  .year-node { flex-shrink: 0; margin-left: 9px; }
+}
+
+/* ---- Year marker ---- */
+/* No `display` here on purpose: the @supports blocks above own it, and a
+   later declaration at equal specificity would beat display:contents. */
+.year-marker {
+  z-index: 2;
 }
 
 .year-label {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 100px;
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--accent-cyan);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(30px) scale(0.9);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-}
-
-.journey-phase.active .year-label {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  white-space: nowrap;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .year-node {
-  width: 28px;
-  height: 28px;
-  background: var(--accent-cyan);
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: 5px solid var(--bg-primary);
-  box-shadow:
-    0 0 40px rgba(6, 182, 212, 0.8),
-    0 0 80px rgba(6, 182, 212, 0.4),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  transform: scale(0.7);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  background: var(--bg-primary);
+  border: 3px solid var(--border-glow);
+  box-shadow: 0 0 0 5px var(--bg-primary);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.journey-phase.active .year-node {
-  opacity: 1;
-  transform: scale(1.2);
+/* Lit state — set once when the phase scrolls in, then left alone. */
+.journey-phase.is-visible .year-label {
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.08);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.12);
+}
+
+.journey-phase.is-visible .year-node {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 5px var(--bg-primary), 0 0 18px rgba(6, 182, 212, 0.6);
+}
+
+/* Only the phase nearest the middle of the screen pulses — one element at a
+   time, so the compositor is never animating six glows at once. */
+.journey-phase.is-current .year-node {
   animation: nodePulse 3s ease-in-out infinite;
 }
 
-.journey-phase.active .year-node::before {
-  content: '';
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%);
-  animation: nodeRipple 3s ease-in-out infinite;
-}
-
-.journey-phase {
-  position: relative;
-  margin-bottom: 160px;
-  opacity: 0;
-  transform: translateY(40px) translateX(-20px);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, opacity;
-}
-
-.journey-phase.active {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-}
-
-.journey-phase.prev {
-  opacity: 0.4;
-  transform: translateY(20px) translateX(-10px);
-}
-
+/* ---- Card ---- */
 .phase-content {
-  background: rgba(20, 20, 31, 0.85);
-  backdrop-filter: blur(30px) saturate(150%);
-  -webkit-backdrop-filter: blur(30px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 50px 60px;
   position: relative;
-  opacity: 0;
-  transform: translateY(60px) translateX(-30px);
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  will-change: transform, opacity;
+  background: rgba(20, 20, 31, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 30px 34px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
 
+/* Hairline that lights along the top edge once the card is reached. */
 .phase-content::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.6), transparent);
+  top: 0; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.55), transparent);
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
-.phase-content::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
+.journey-phase.is-visible .phase-content {
+  border-color: rgba(6, 182, 212, 0.2);
 }
 
-.journey-phase.active .phase-content {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-  border-color: rgba(6, 182, 212, 0.3);
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(6, 182, 212, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 40px rgba(6, 182, 212, 0.1);
-}
-
-.journey-phase.active .phase-content::before { opacity: 1; }
-.journey-phase.active .phase-content::after { opacity: 1; }
+.journey-phase.is-visible .phase-content::before { opacity: 1; }
 
 .phase-content:hover {
-  transform: translateY(-4px) translateX(0) scale(1.01);
-  box-shadow:
-    0 40px 100px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(6, 182, 212, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 60px rgba(6, 182, 212, 0.2);
+  transform: translateY(-3px);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45), 0 0 28px rgba(6, 182, 212, 0.12);
 }
 
 .phase-title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1.25;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--text-primary);
   background: linear-gradient(135deg, #fff, var(--accent-cyan));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.journey-phase.active .phase-title {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
+  -webkit-text-fill-color: transparent;
 }
 
 .phase-body {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-secondary);
-  line-height: 1.9;
-  margin-bottom: 32px;
+  line-height: 1.8;
+  margin-bottom: 22px;
 }
 
-.phase-body p {
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .phase-body p:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
-.journey-phase.active .phase-body p:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
-.journey-phase.active .phase-body p:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+.phase-body p { margin-bottom: 14px; }
+.phase-body p:last-child { margin-bottom: 0; }
 
 .phase-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.journey-phase.active .phase-tech {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.6s;
+  gap: 10px;
 }
 
 .phase-tech span {
-  padding: 10px 24px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 7px 16px;
   border-radius: 30px;
-  font-size: 0.9rem;
-  color: var(--accent-cyan);
+  font-size: 0.82rem;
   font-weight: 600;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: default;
-}
-
-.journey-phase.active .phase-tech span {
-  animation: tagFloat 0.6s ease-out forwards;
-}
-
-.journey-phase.active .phase-tech span:nth-child(1) { animation-delay: 0.7s; }
-.journey-phase.active .phase-tech span:nth-child(2) { animation-delay: 0.75s; }
-.journey-phase.active .phase-tech span:nth-child(3) { animation-delay: 0.8s; }
-.journey-phase.active .phase-tech span:nth-child(4) { animation-delay: 0.85s; }
-.journey-phase.active .phase-tech span:nth-child(5) { animation-delay: 0.9s; }
-
-@keyframes tagFloat {
-  0% { opacity: 0; transform: translateY(20px) scale(0.9); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .phase-tech span:hover {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(139, 92, 246, 0.2));
+  background: rgba(6, 182, 212, 0.16);
   border-color: var(--accent-cyan);
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3), 0 0 20px rgba(6, 182, 212, 0.2);
+  transform: translateY(-2px);
 }
 
-/* Journey responsive */
-@media (max-width: 1024px) {
-  .journey-timeline { padding: 0 40px; }
-  .phase-content { padding: 40px 50px; }
-  .phase-title { font-size: 1.6rem; }
-  .phase-body { font-size: 1rem; }
+/* ---- Reveal (added by JS only; see note at the top of this block) ---- */
+.journey-timeline.js-reveal .journey-phase {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.journey-timeline.js-reveal .journey-phase.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Responsive ---- */
 @media (max-width: 768px) {
-  #journey { padding: 140px 0; }
-  .journey-timeline { padding: 0 30px; }
-  .timeline-line { left: 40px; transform: none; width: 4px; }
-  .year-marker { left: 40px; transform: none; }
-  .phase-content { padding: 30px 40px; margin-left: 80px; border-radius: 20px; }
-  .phase-title { font-size: 1.4rem; margin-bottom: 20px; }
-  .phase-body { font-size: 0.95rem; line-height: 1.8; margin-bottom: 24px; }
-  .phase-body p { margin-bottom: 16px; }
-  .phase-tech span { padding: 8px 20px; font-size: 0.85rem; }
+  #journey { padding: 100px 0; }
+
+  .journey-phase { margin-bottom: 48px; }
+
+  @supports (display: contents) {
+    .journey-phase {
+      grid-template-columns: 24px minmax(0, 1fr);
+      column-gap: 16px;
+      row-gap: 12px;
+    }
+  }
+
+  .timeline-line { left: 12px; }
+
+  .year-node { width: 13px; height: 13px; border-width: 3px; box-shadow: 0 0 0 4px var(--bg-primary); }
+  .journey-phase.is-visible .year-node {
+    box-shadow: 0 0 0 4px var(--bg-primary), 0 0 14px rgba(6, 182, 212, 0.55);
+  }
+
+  .year-label { font-size: 0.8rem; padding: 4px 13px; }
+
+  .phase-content { padding: 22px 20px; border-radius: 16px; }
+  .phase-content::before { left: 16px; right: 16px; }
+  .phase-title { font-size: 1.15rem; margin-bottom: 12px; }
+  .phase-body  { font-size: 0.93rem; line-height: 1.75; margin-bottom: 18px; }
+  .phase-tech  { gap: 8px; }
+  .phase-tech span { padding: 6px 14px; font-size: 0.78rem; }
 }
 
-@media (max-width: 480px) {
-  #journey { padding: 100px 0; }
-  .journey-timeline { padding: 0 20px; }
-  .timeline-line { left: 30px; width: 3px; }
-  .year-marker { left: 30px; gap: 12px; }
-  .year-label { font-size: 0.95rem; }
-  .year-node { width: 20px; height: 20px; border-width: 3px; }
-  .phase-content { padding: 24px 28px; margin-left: 60px; border-radius: 18px; }
-  .phase-title { font-size: 1.2rem; margin-bottom: 16px; }
-  .phase-body { font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; }
-  .phase-tech { gap: 10px; }
-  .phase-tech span { padding: 6px 16px; font-size: 0.8rem; }
+@media (max-width: 400px) {
+  #journey { padding: 72px 0; }
+  .journey-phase { margin-bottom: 40px; }
+  @supports (display: contents) {
+    .journey-phase { grid-template-columns: 20px minmax(0, 1fr); column-gap: 12px; }
+  }
+  .timeline-line { left: 10px; }
+  .phase-content { padding: 18px 16px; }
+  .phase-title { font-size: 1.05rem; }
+  .phase-body  { font-size: 0.88rem; }
+}
+
+/* ---- Cheap mode ----
+   script.js sets html.low-power from deviceMemory / hardwareConcurrency.
+   Backdrop blur over seven large cards is the single most expensive thing on
+   this page for a weak GPU, so it is the first thing to go. */
+html.low-power .phase-content {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: #14141f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+html.low-power .timeline-progress { box-shadow: none; }
+html.low-power .timeline-progress::after { display: none; }
+html.low-power .journey-phase.is-current .year-node { animation: none; }
+html.low-power .journey-phase.is-visible .year-label { text-shadow: none; }
+html.low-power .phase-content:hover { transform: none; }
+
+html.low-power .journey-timeline.js-reveal .journey-phase {
+  transform: none;              /* fade only — no transform on a weak GPU */
+  transition: opacity 0.45s ease;
+}
+
+/* Reduced motion: show everything at once, no reveal, no pulse. */
+@media (prefers-reduced-motion: reduce) {
+  .journey-timeline.js-reveal .journey-phase {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+  .journey-phase.is-current .year-node { animation: none; }
+  .timeline-progress::after { display: none; }
 }
 
 /* ========== GLOBAL ENHANCEMENTS ========== */
@@ -2714,7 +2509,7 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 
-.stagger-item {
+.js .stagger-item {
   opacity: 0;
   transform: translateY(15px);
 }
@@ -2816,32 +2611,52 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 
+/* ========== LOW-POWER MODE ==========
+   script.js adds html.low-power when the device reports few cores / little
+   memory, or when the user asks for reduced motion. These are the effects
+   that cost the most on a weak GPU and the least to lose. */
+html.low-power .noise-overlay { display: none; }
+html.low-power .bg-blob { display: none; }
+html.low-power #hero-canvas { display: none; }
+html.low-power .hero-particles { display: none; }
+html.low-power .hero-grid { opacity: 0.5; }
 
+html.low-power nav,
+html.low-power .phase-content,
+html.low-power .cmd-palette,
+html.low-power #cmd-palette {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html.low-power nav { background: rgba(10, 10, 15, 0.97); }
 
+html.low-power .photo-ring,
+html.low-power .avatar-ring,
+html.low-power .about-photo-border { animation: none; }
 
-/* Timeline container */
-.journey-timeline {
-  position: relative;
-  padding: 60px 0;
+html.low-power .float-card { animation: none; }
+html.low-power .gradient-text { animation: none; }
+html.low-power .certs-carousel-track { animation-duration: 60s; }
+
+/* The custom cursor costs a style recalc on every mousemove. */
+html.low-power .custom-cursor,
+html.low-power .cursor-dot { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .certs-carousel-track { animation: none; }
+  .fade-up, .fade-in { opacity: 1 !important; transform: none !important; }
 }
 
-/* Vertical line */
-.journey-timeline::before {
-  content: "";
+
+/* Ripple on the About info rows. */
+.info-item { position: relative; overflow: hidden; }
+.info-ripple {
   position: absolute;
-  left: 34px;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--accent-cyan),
-    transparent
-  );
-
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 1.2s ease;
+  border-radius: 50%;
+  background: rgba(6, 182, 212, 0.3);
+  transform: scale(0);
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
 }
-
+@keyframes rippleEffect { to { transform: scale(4); opacity: 0; } }
+html.low-power .info-ripple { display: none; }
