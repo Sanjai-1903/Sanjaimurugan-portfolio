@@ -1353,7 +1353,25 @@
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script src="script.js?v=5" defer></script>
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+
+<!-- ==================== ANALYTICS ====================
+     Both of these are cookieless and store no personal data, so the site
+     still needs no consent banner.
+
+     Vercel: these two paths are rewritten by Vercel's edge, so they only
+     resolve on the deployed site — on localhost they 404, which `defer`
+     makes harmless. They stay inert until Web Analytics and Speed Insights
+     are switched on in the project dashboard.                            -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<!-- Umami — gives the one thing Vercel's free tier will not: custom events,
+     so you can tell whether people actually reach the research section.
+     To turn on: create the site at cloud.umami.is (free), paste the website
+     id below, and uncomment the tag.
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="PASTE-UMAMI-WEBSITE-ID-HERE"></script>
+-->
 
 </body>
 </html>
