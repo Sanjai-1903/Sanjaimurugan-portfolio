@@ -71,6 +71,16 @@ routing conclusions drawn from this phase.
 - DriveCLIP — multi-task driving perception extending CLIP ViT-B/32 with a
   feature pyramid and cross-attention, merging five sequential tasks into one
   forward pass for 2.3x throughput at 20.4 FPS.
+- py-alpha-29m — a 29.5M-parameter encoder-decoder transformer trained from
+  scratch on Python, on one Apple M4 Pro. Own byte-level BPE tokeniser, 600M
+  tokens of deduplicated and decontaminated corpus, T5-style span-corruption
+  pretraining (val loss 1.2153, 74.6% token accuracy), then fine-tuning on
+  500,000 docstring-mined (request, code) pairs. Reported as measured: 90% parse
+  rate on MBPP, 0.0% pass@1; 1.7% pass@1 on HumanEval. Giving the model the
+  function signature raised parse rate to 97% and left pass@1 at 0%, and
+  best-of-10 sampling never beat greedy — the limit is composing logic, not
+  conditioning. MIT.
+  https://github.com/Sanjai-1903/py-alpha-29m
 - RAG chatbot — retrieval-augmented assistant with vector search and embeddings.
   https://github.com/Sanjai-1903/rag-chatbot
 - TinyLlama LoRA fine-tuning — parameter-efficient adaptation on Apple MLX with

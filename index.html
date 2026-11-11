@@ -108,6 +108,7 @@
         "Post-training quantization",
         "Int8 quantization",
         "Large language model inference optimization",
+        "Transformer pretraining from scratch",
         "Expert routing analysis",
         "LoRA",
         "Parameter-efficient fine-tuning",
@@ -194,6 +195,21 @@
         {
           "@type": "ListItem",
           "position": 5,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "name": "py-alpha-29m",
+            "description": "A 29.5M-parameter encoder-decoder transformer trained from scratch on 600M tokens of Python: custom byte-level BPE tokeniser, span-corruption pretraining and a MBPP/HumanEval evaluation harness, trained on a single Apple M4 Pro.",
+            "codeRepository": "https://github.com/Sanjai-1903/py-alpha-29m",
+            "programmingLanguage": "Python",
+            "license": "https://opensource.org/licenses/MIT",
+            "author": {
+              "@id": "https://www.sanjaimurugan.me/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
           "item": {
             "@type": "SoftwareSourceCode",
             "name": "RAG Chatbot",
@@ -407,6 +423,7 @@
             <div class="terminal-line"><span class="terminal-output">— Building production-grade local LLM systems</span></div>
             <div class="terminal-line"><span class="terminal-output">— Researching efficient inference & agent architectures</span></div>
             <div class="terminal-line"><span class="terminal-prompt">❯</span> ls projects/</div>
+            <div class="terminal-line"><span class="terminal-output">— py-alpha-29m (trained from scratch)</span></div>
             <div class="terminal-line"><span class="terminal-output">— multi-agent-coding-system</span></div>
             <div class="terminal-line"><span class="terminal-output">— rag-portfolio-assistant</span></div>
             <div class="terminal-line"><span class="terminal-output">— vision-lowlight-detection</span></div>
@@ -425,7 +442,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-number" id="metric-projects" data-target="6">0</div>
+        <div class="stat-number" id="metric-projects" data-target="7">0</div>
         <div class="stat-label">AI Projects</div>
       </div>
       <div class="stat-divider"></div>
@@ -531,7 +548,58 @@
 
     <div class="projects-grid">
       <!-- Project 1 -->
-      
+      <div class="project-card fade-up">
+        <div class="project-card-inner">
+          <div class="project-tagline">&#129302; Language Models &middot; From Scratch</div>
+          <h3 class="project-title">py-alpha-29m &mdash; A 29.5M Encoder-Decoder Trained From Scratch</h3>
+          <div class="project-date">Nov 2026</div>
+          <p class="project-tagline-text">"Own tokeniser, own corpus, own pretraining objective, own evaluation harness &mdash; on one laptop."</p>
+          <p class="project-desc">
+            A 29.5M-parameter encoder-decoder transformer built end to end: a byte-level BPE
+            tokeniser, 600M tokens of deduplicated and decontaminated Python, T5-style span-corruption
+            pretraining, then fine-tuning on 500,000 (request, code) pairs mined from docstrings. All
+            of it on a single Apple M4 Pro at ~30,000 tokens/sec, in 6h 20m of training. It writes
+            syntactically valid Python 90% of the time and almost never writes <em>correct</em>
+            Python &mdash; the numbers are reported as measured, including the ones that didn't move.
+          </p>
+          <ul class="project-features">
+            <li>4 encoder + 12 decoder blocks, cross-attention every layer, SwiGLU, tied output projection</li>
+            <li>Training data decontaminated against HumanEval and MBPP by 13-gram overlap before training</li>
+            <li>Self-tests per component: initial loss at ln(vocab), causality, cross-attention padding isolation</li>
+            <li>Own MBPP + HumanEval harness with best-of-n sampling and token-level accuracy</li>
+          </ul>
+          <div class="project-metrics">
+            <div class="metric-item"><strong>29.5M</strong> parameters, 600M training tokens</div>
+            <div class="metric-item"><strong>1.2153</strong> val loss, 74.6% token accuracy (stage 1)</div>
+            <div class="metric-item"><strong>90%</strong> parse rate &middot; 1.7% HumanEval pass@1</div>
+          </div>
+          <div class="project-tech">
+            <span>PyTorch</span><span>MPS / Apple Silicon</span><span>Byte-level BPE</span><span>Span Corruption</span>
+          </div>
+          <div class="project-buttons">
+            <a href="https://github.com/Sanjai-1903/py-alpha-29m" target="_blank" rel="noopener" class="project-btn primary">
+              &#128025; GitHub
+            </a>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7523790726774611968/" target="_blank" rel="noopener" class="project-btn primary">
+              &#128188; LinkedIn
+            </a>
+          </div>
+          <div class="expand-section">
+            <button class="expand-toggle" onclick="toggleExpand(this)">&#9656; What the Experiments Established</button>
+            <div class="expand-content">
+              <div class="expand-inner">
+                <h4>Four interventions: every one that addressed format worked, none moved correctness</h4>
+                <ul class="stagger-list">
+                  <li><strong>Conditioning is not the bottleneck.</strong> Handed the function name and parameter list &mdash; two of its three jobs removed &mdash; parse rate rose 90% &rarr; 97% and pass@1 stayed at 0%. The limit is composing logic, not understanding the request.</li>
+                  <li><strong>Nothing is hiding in the distribution.</strong> Best-of-10 never beat greedy at any temperature, and parse rate collapses from 88% to 2% as temperature rises to 0.8. The mass behind the argmax is noise, not plausible alternatives.</li>
+                  <li><strong>42% of the parameters exist to read the request</strong> &mdash; encoder embedding, encoder layers and cross-attention &mdash; while fine-tuning requests average 18 tokens. The encoder-decoder split was chosen to learn cross-attention, not for efficiency.</li>
+                  <li><strong>Register, not noise, is the data problem.</strong> Docstring-mined pairs are library plumbing, because nobody documents <code>def reverse(s): return s[::-1]</code>. No amount of filtering creates tutorial-style code that isn't in the corpus.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Project 2 -->
       <div class="project-card fade-up">
